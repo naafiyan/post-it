@@ -15,7 +15,7 @@ export default function User({ match }: any) {
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   // If logged in show edit page options
   // If not logged in just show basic details

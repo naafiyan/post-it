@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { useState } from "react";
 import axios from "axios";
+import { PostContext } from "../contexts/PostContext";
 
 export default function PostCard(props: any) {
   const { post } = props;
@@ -12,16 +13,20 @@ export default function PostCard(props: any) {
     post.date_posted
   ).toLocaleString(DateTime.DATETIME_FULL);
 
+  const { posts } = useContext(PostContext);
+
   const { user } = useContext(UserContext);
   const [isPostUser, setIsPostUser] = useState(false);
 
   // delete button not showing up for some reason
   useEffect(() => {
     if (user) {
-      if (user._id == post.user._id) {
+      if (user._id === post.user._id) {
         setIsPostUser(true);
+        console.log("user logged in");
       }
     } else {
+      console.log("user logged out");
       setIsPostUser(false);
     }
   }, [user]);

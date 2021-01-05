@@ -11,7 +11,9 @@ let CommentSchema = new Schema({
 CommentSchema.virtual("date_posted_formatted").get(function (this: {
   date_posted: Date;
 }) {
-  return DateTime.fromISO(this.date_posted).toLocaleString(DateTime.DATE_MED);
+  return DateTime.fromISO(this.date_posted.toString()).toLocaleString(
+    DateTime.DATE_MED
+  );
 });
 // export model
 export default mongoose.model("Comment", CommentSchema);

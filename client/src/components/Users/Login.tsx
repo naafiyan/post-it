@@ -2,12 +2,14 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
+import { PostContext } from "../contexts/PostContext";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const userContext = useContext(UserContext);
+  const { update, setUpdate } = useContext(PostContext);
 
   // handle login
   const handleSubmit = (form: any) => {
@@ -19,10 +21,11 @@ export default function Login() {
         //{ headers: { "Content-type": "application/json" } }
       )
       .then((res) => {
-        userContext.setUser(res.data);
+        userContext.setUser(res.data.user);
+        console.log(res.data);
         localStorage.setItem("id_token", JSON.stringify(res.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        console.log(res.data);
+        setUpdate(!update);
       })
       .catch((err) => console.error(err));
     form.target.reset();

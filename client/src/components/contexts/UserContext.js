@@ -7,7 +7,8 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     if (localStorage.getItem("user") !== null) {
-      setUser(JSON.parse(localStorage.getItem("user")));
+      console.log(JSON.parse(localStorage.getItem("user") || ""));
+      setUser(JSON.parse(localStorage.getItem("user") || ""));
     }
   }, []);
 

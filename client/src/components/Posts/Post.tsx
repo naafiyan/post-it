@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { CommentForm } from "./Comment";
 
 export default function Posts({ match }: any) {
   const [post, setPost]: any = useState();
@@ -23,6 +24,7 @@ export default function Posts({ match }: any) {
           <h3>{post.title}</h3>
           <p>{post.user.username}</p>
           <p>{post.text}</p>
+          <CommentForm post={post} user={post.user} />
         </div>
       )}
       {!post && <h3>Post Not Found</h3>}

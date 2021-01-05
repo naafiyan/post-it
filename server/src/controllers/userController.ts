@@ -14,7 +14,7 @@ import { body, validationResult } from "express-validator";
 export const login_user = (req: any, res: any, next: any) => {
   passport.authenticate("local", { session: false }, (err, user, info) => {
     if (err || !user) {
-      return res.json({
+      return res.status(400).json({
         message: "Could not authenticate",
       });
     }
