@@ -7,6 +7,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
 
+import { body, validationResult } from "express-validator";
+
 // TODO: implement jwt
 
 export const login_user = (req: any, res: any, next: any) => {
@@ -36,42 +38,60 @@ export const login_user = (req: any, res: any, next: any) => {
   })(req, res);
 };
 
-export const signup_user = (req: any, res: any, next: any) => {
-  const { username, password, email } = req.body;
-  User.findOne(
-    { username },
-    (err: any, user: { username: string; password: string; email: string }) => {
-      if (user)
-        return res.json({ message: "User with this username already exists" });
+export const signup_user = [
+  // Sanitization
+  body("username", "Username must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("password", "Password must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("email", "Email must be specified").trim().isLength({ min: 1 }).escape(),
 
-      bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) console.log(err);
-        const user: any = new User({
-          username: username,
-          password: hashedPassword,
-          email: email,
-        });
+  (req: any, res: any, next: any) => {
+    const { username, password, email } = req.body;
+    User.findOne(
+      { username },
+      (
+        err: any,
+        user: { username: string; password: string; email: string }
+      ) => {
+        if (user)
+          return res.json({
+            message: "User with this username already exists",
+          });
 
-        user.save((err: any) => {
-          if (err) throw Error(err);
-          // saved
+        bcrypt.hash(password, 10, (err, hashedPassword) => {
+          if (err) console.log(err);
+          const user: any = new User({
+            username: username,
+            password: hashedPassword,
+            email: email,
+          });
 
-          const token = jwt.sign(
-            { _id: user._id, username: user.username },
-            process.env.JWT_SECRET || ""
-            //{ expiresIn: process.env.JWT_EXPIRES_IN }
-          );
+          user.save((err: any) => {
+            if (err) throw Error(err);
+            // saved
 
-          res.status(200).json({
-            token,
-            user: user,
-            message: "Signed up Successfully",
+            const token = jwt.sign(
+              { _id: user._id, username: user.username },
+              process.env.JWT_SECRET || ""
+              //{ expiresIn: process.env.JWT_EXPIRES_IN }
+            );
+
+            res.status(200).json({
+              token,
+              user: user,
+              message: "Signed up Successfully",
+            });
           });
         });
-      });
-    }
-  );
-};
+      }
+    );
+  },
+];
 
 // Get one user
 export const get_user = (req: any, res: any, next: any) => {

@@ -15,6 +15,7 @@ export default function PostCard(props: any) {
   const { user } = useContext(UserContext);
   const [isPostUser, setIsPostUser] = useState(false);
 
+  // delete button not showing up for some reason
   useEffect(() => {
     if (user) {
       if (user._id == post.user._id) {
@@ -37,7 +38,7 @@ export default function PostCard(props: any) {
   };
 
   return (
-    <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 max-w-md md:max-2-2xl">
+    <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-20 max-w-md md:max-2-2xl">
       <Link to={"/posts/" + post._id}>
         <div className="my-2 mx-2">
           <p className="text-s">{post.user.username}</p>

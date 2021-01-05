@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex justify-start bg-blue-400">
+    <div className="flex justify-start h-10vh bg-blue-400">
       <div className="m-auto">
         <NavLink to="/">Posts</NavLink>
       </div>
