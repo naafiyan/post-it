@@ -35,8 +35,13 @@ export default function Navbar() {
       </div>
 
       <div className="mx-4 my-4">
-        {isLoggedIn && (
-          <div>
+        {isLoggedIn && user && (
+          <div className="flex justify-end">
+            <NavLink to={"/users/" + user._id}>
+              <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
+                {user.username}
+              </p>
+            </NavLink>
             <button
               className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
               onClick={handleLogout}
