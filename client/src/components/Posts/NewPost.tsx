@@ -30,6 +30,7 @@ export default function NewPost() {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
+    form.target.reset();
   };
 
   return (
@@ -37,19 +38,18 @@ export default function NewPost() {
       <h3>New Post</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="text">Text:</label>
-        <input
+        <textarea
           onChange={(e) => {
             setText(e.target.value);
             setCount(e.target.value.length);
           }}
-          type="textarea"
           placeholder="Enter Text"
           minLength={1}
           maxLength={300}
-        ></input>
+        ></textarea>
         <span>{count}/300</span>
 
-        <input type="submit"></input>
+        <button type="submit">Post</button>
       </form>
     </div>
   );

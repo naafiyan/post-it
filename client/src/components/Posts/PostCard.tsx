@@ -9,6 +9,8 @@ import { PostContext } from "../contexts/PostContext";
 export default function PostCard(props: any) {
   const { post } = props;
   const { updatePosts } = props;
+
+  // format date better i.e. 2 hours ago, 5mins ago etc
   const date_posted_formatted = DateTime.fromISO(
     post.date_posted
   ).toLocaleString(DateTime.DATETIME_FULL);
@@ -49,12 +51,12 @@ export default function PostCard(props: any) {
           <p className="text-s">{post.user.username}</p>
         </Link>
         <Link to={"/posts/" + post._id}>
-          <p className="text-left mx-4 py-5 px-20">{post.text}</p>
+          <p className="mx-4 py-5 px-20">{post.text}</p>
         </Link>
       </div>
 
       <div>
-        <p className="text-xs text-right py-2 px-2">{date_posted_formatted}</p>
+        <p className="text-xs py-2 px-2">{date_posted_formatted}</p>
         {isPostUser && <button onClick={handleDelete}>Delete</button>}
       </div>
     </div>

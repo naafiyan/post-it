@@ -28,7 +28,7 @@ export default function PostsPage() {
         </span>
       )}
       {!user && <p className="my-4">You must be logged in to post!</p>}
-      <div className="flex flex-col items-center w-100">
+      <div className="flex flex-col flex-grow items-center w-100">
         <ul className="w-full">
           {posts.map((post: any) => (
             <li className="w-full" key={post._id}>

@@ -20,7 +20,7 @@ function App() {
     <UserProvider>
       <PostProvider>
         <Router>
-          <div className="App h-screen bg-gray-100">
+          <div className="App bg-gray-100">
             <Navbar />
             <Switch>
               <Route path="/" exact component={PostsPage} />

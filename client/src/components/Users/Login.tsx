@@ -1,9 +1,10 @@
-import axios from "axios";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { PostContext } from "../contexts/PostContext";
 import { useHistory } from "react-router-dom";
+
+import { handleLogin } from "../utils/UserActions";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -17,21 +18,7 @@ export default function Login() {
   // handle login
   const handleSubmit = (form: any) => {
     form.preventDefault();
-    axios
-      .post(
-        "http://localhost:3000/users/login",
-        { username, password }
-        //{ headers: { "Content-type": "application/json" } }
-      )
-      .then((res) => {
-        userContext.setUser(res.data.user);
-        console.log(res.data);
-        localStorage.setItem("id_token", JSON.stringify(res.data.token));
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        setUpdate(!update);
-        history.push("/");
-      })
-      .catch((err) => console.error(err));
+    handleLogin(username, password, userContext, update, setUpdate, history);
     form.target.reset();
   };
 
