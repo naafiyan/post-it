@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { Link } from "react-router-dom";
 import { PostContext } from "../contexts/PostContext";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -10,6 +11,8 @@ export default function Login() {
 
   const userContext = useContext(UserContext);
   const { update, setUpdate } = useContext(PostContext);
+
+  const history = useHistory();
 
   // handle login
   const handleSubmit = (form: any) => {
@@ -26,6 +29,7 @@ export default function Login() {
         localStorage.setItem("id_token", JSON.stringify(res.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
         setUpdate(!update);
+        history.push("/");
       })
       .catch((err) => console.error(err));
     form.target.reset();

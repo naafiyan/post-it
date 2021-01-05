@@ -4,9 +4,13 @@ import { NavLink } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
 import axios from "axios";
 
+import { useHistory } from "react-router-dom";
+
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     if (user) {
@@ -22,6 +26,7 @@ export default function Navbar() {
     localStorage.removeItem("expires_at");
     localStorage.removeItem("user");
     setUser(null);
+    history.push("/");
   };
 
   return (
