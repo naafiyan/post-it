@@ -13,23 +13,26 @@ import NewPost from "./components/Posts/NewPost";
 
 // Context
 import { UserProvider } from "./components/contexts/UserContext";
+import { PostProvider } from "./components/contexts/PostContext";
 
 function App() {
   return (
     <UserProvider>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            <Route path="/" exact component={PostsPage} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/sign-up" exact component={Signup} />
-            <Route path="/posts/new" exact component={NewPost} />
-            <Route path="/posts/:id" exact component={Post} />
-            <Route path="/users/:id" exact component={User} />
-          </Switch>
-        </div>
-      </Router>
+      <PostProvider>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Switch>
+              <Route path="/" exact component={PostsPage} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/sign-up" exact component={Signup} />
+              <Route path="/posts/new" exact component={NewPost} />
+              <Route path="/posts/:id" exact component={Post} />
+              <Route path="/users/:id" exact component={User} />
+            </Switch>
+          </div>
+        </Router>
+      </PostProvider>
     </UserProvider>
   );
 }

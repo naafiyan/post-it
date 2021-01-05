@@ -3,27 +3,29 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import PostCard from "./PostCard";
+import NewPost from "./NewPost";
+import { PostContext } from "../contexts/PostContext";
 
 export default function PostsPage() {
-  const [posts, setPosts]: any = useState([]);
+  //const [posts, setPosts]: any = useState([]);
 
   const { user } = useContext(UserContext);
+  const { posts, setPosts } = useContext(PostContext);
 
   // use setTimeOut to refresh for new posts every x seconds
 
-  useEffect(() => {
-    // get list of all posts
-    axios
-      .get("http://localhost:3000/posts/")
-      .then((res) => {
-        console.log(res.data.posts);
-        setPosts(res.data.posts);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   // get list of all posts
+  //   axios
+  //     .get("http://localhost:3000/posts/")
+  //     .then((res) => {
+  //       console.log(res.data.posts);
+  //       setPosts(res.data.posts);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const updatePosts = (post: any) => {
-    console.log("I am getting called");
     const newPosts = posts.filter((a: any) => a !== post);
     console.log(newPosts);
     setPosts(posts.filter((a: any) => a !== post));
@@ -33,6 +35,7 @@ export default function PostsPage() {
 
   return (
     <div>
+      <NewPost />
       {user && (
         <span className="my-4 w-full mr-4">
           <Link to="/posts/new">New Post</Link>

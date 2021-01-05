@@ -17,7 +17,7 @@ export default function PostCard(props: any) {
 
   useEffect(() => {
     if (user) {
-      if (user.user._id == post.user._id) {
+      if (user._id == post.user._id) {
         setIsPostUser(true);
       }
     } else {
@@ -40,7 +40,6 @@ export default function PostCard(props: any) {
     <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 max-w-md md:max-2-2xl">
       <Link to={"/posts/" + post._id}>
         <div className="my-2 mx-2">
-          <h3 className="text-4xl">{post.title}</h3>
           <p className="text-s">{post.user.username}</p>
 
           <p className="text-left mx-4 py-5 px-20">{post.text}</p>

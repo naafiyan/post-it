@@ -2,8 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { DateTime } from "luxon";
 
 let PostSchema = new Schema({
-  title: { type: String, required: true, minlength: 1, maxlength: 99 },
-  text: { type: String, required: true, minlength: 1, maxlength: 1000 },
+  text: { type: String, required: true, minlength: 1, maxlength: 300 },
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   date_posted: { type: Date, required: true },

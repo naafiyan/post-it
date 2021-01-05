@@ -2,20 +2,19 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
 
-export default function NewPost() {
-  const { user } = useContext(UserContext);
+import { PostContext } from "../contexts/PostContext";
 
-  const [title, setTitle] = useState("");
+export default function NewPost() {
+  const { update, setUpdate } = useContext(PostContext);
   const [text, setText] = useState("");
 
   const handleSubmit = (form: any) => {
     form.preventDefault();
-    console.log(JSON.parse(localStorage.getItem("user") || ""));
     const userData = JSON.parse(localStorage.getItem("user") || "");
     axios
       .post(
         "http://localhost:3000/posts/new",
-        { title, text, user: userData },
+        { text, user: userData },
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
@@ -25,6 +24,7 @@ export default function NewPost() {
         }
       )
       .then((res) => {
+        setUpdate(!update);
         console.log(res.data);
       })
       .catch((err) => console.log(err));
@@ -34,13 +34,6 @@ export default function NewPost() {
     <div>
       <h3>New Post</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title:</label>
-        <input
-          onChange={(e) => setTitle(e.target.value)}
-          type="text"
-          placeholder="Enter Title"
-        ></input>
-
         <label htmlFor="text">Text:</label>
         <input
           onChange={(e) => setText(e.target.value)}

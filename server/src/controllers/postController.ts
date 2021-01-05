@@ -16,11 +16,9 @@ export const get_post = (req: any, res: any, next: any) => {
 };
 
 export const new_post = (req: any, res: any, next: any) => {
-  console.log(req.body);
   //sanitize the fields
 
   const post = new Post({
-    title: req.body.title,
     text: req.body.text,
     user: req.body.user,
     date_posted: Date.now(),
