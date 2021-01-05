@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { CommentForm, Comments } from "./Comment";
+import { CommentForm, Comment } from "./Comment";
 
 export default function Posts({ match }: any) {
   const [post, setPost]: any = useState();
@@ -40,9 +40,7 @@ export default function Posts({ match }: any) {
             {comments.map((comment: any) => {
               return (
                 <li>
-                  <h1>
-                    {comment.text} {comment.user.username}
-                  </h1>
+                  <Comment comment={comment} />
                 </li>
               );
             })}

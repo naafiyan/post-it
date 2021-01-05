@@ -1,6 +1,12 @@
 import Comment from "../models/comment";
 
-export const get_comments = (req: any, res: any, next: any) => {
+import { NextFunction, Request, Response } from "express";
+
+export const get_comments = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   Comment.find({ post: req.params.postid }, (err, comments) => {
     console.log(comments);
     if (err) next(err);
@@ -10,7 +16,11 @@ export const get_comments = (req: any, res: any, next: any) => {
   }).populate("user");
 };
 
-export const new_comment = (req: any, res: any, next: any) => {
+export const new_comment = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   // sanitize field
 
   const comment = new Comment({

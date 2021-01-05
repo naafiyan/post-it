@@ -30,6 +30,7 @@ export default function NewPost() {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
+    setCount(0);
     form.target.reset();
   };
 

@@ -47,6 +47,11 @@ export function CommentForm(props: any) {
   );
 }
 
-export function Comments(props: any) {
-  return <div>Comments</div>;
+export function Comment(props: any) {
+  const { comment } = props;
+  return (
+    <div>
+      {comment.text} {comment.user.username}
+    </div>
+  );
 }

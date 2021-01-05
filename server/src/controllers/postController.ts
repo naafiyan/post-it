@@ -1,10 +1,10 @@
 import Post from "../models/post";
-import Comment from "../models/comment";
-import { DateTime } from "luxon";
 
 const { body, validationResult } = require("express-validator");
 
-export const get_posts = (req: any, res: any, next: any) => {
+import { NextFunction, Request, Response } from "express";
+
+export const get_posts = (req: Request, res: Response, next: NextFunction) => {
   Post.find((err, posts) => {
     if (err) next(err);
     return res.json({ posts });
@@ -13,14 +13,14 @@ export const get_posts = (req: any, res: any, next: any) => {
     .sort([["date_posted", -1]]);
 };
 
-export const get_post = (req: any, res: any, next: any) => {
+export const get_post = (req: Request, res: Response, next: NextFunction) => {
   Post.findById(req.params.postid, (err: any, post: any) => {
     if (err) next(err);
     return res.json({ post });
   }).populate("user");
 };
 
-export const new_post = (req: any, res: any, next: any) => {
+export const new_post = (req: Request, res: Response, next: NextFunction) => {
   //sanitize the fields
 
   const post = new Post({
@@ -35,7 +35,7 @@ export const new_post = (req: any, res: any, next: any) => {
   });
 };
 
-export const delete_post = (req: any, res: any, next: any) => {
+export const delete_post = (req: Request, res: Response) => {
   Post.findByIdAndDelete(req.params.postid)
     .exec()
     .then((post: any) => {

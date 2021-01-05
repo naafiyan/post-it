@@ -9,9 +9,10 @@ import User from "../models/user";
 
 import { body, validationResult } from "express-validator";
 
+import { NextFunction, Request, Response } from "express";
 // TODO: implement jwt
 
-export const login_user = (req: any, res: any, next: any) => {
+export const login_user = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("local", { session: false }, (err, user, info) => {
     if (err || !user) {
       return res.status(400).json({
@@ -50,7 +51,7 @@ export const signup_user = [
     .escape(),
   body("email", "Email must be specified").trim().isLength({ min: 1 }).escape(),
 
-  (req: any, res: any, next: any) => {
+  (req: Request, res: Response, next: NextFunction) => {
     const { username, password, email } = req.body;
     User.findOne(
       { username },
@@ -59,7 +60,7 @@ export const signup_user = [
         user: { username: string; password: string; email: string }
       ) => {
         if (user)
-          return res.json({
+          return res.status(400).json({
             message: "User with this username already exists",
           });
 
@@ -94,14 +95,14 @@ export const signup_user = [
 ];
 
 // Get one user
-export const get_user = (req: any, res: any, next: any) => {
+export const get_user = (req: Request, res: Response, next: NextFunction) => {
   User.findById(req.params.userid, (err: any, user: any) => {
     res.json(user);
   });
 };
 
 // Get all users
-export const get_users = (req: any, res: any, next: any) => {
+export const get_users = (req: Request, res: Response, next: NextFunction) => {
   User.find((err: any, users: any) => {
     if (err) return res.json(err);
     res.json(users);
