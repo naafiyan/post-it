@@ -2,6 +2,8 @@ import Comment from "../models/comment";
 
 import { NextFunction, Request, Response } from "express";
 
+import { body } from "express-validator";
+
 export const get_comments = (
   req: Request,
   res: Response,
@@ -18,26 +20,24 @@ export const get_comments = (
     .sort([["date_posted", -1]]);
 };
 
-export const new_comment = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  // sanitize field
+export const new_comment = [
+  body("text", "Text must be specified").trim().isLength({ min: 1 }).escape(),
 
-  const comment = new Comment({
-    text: req.body.text,
-    user: req.body.user,
-    post: req.body.post,
-    date_posted: Date.now(),
-  });
+  (req: Request, res: Response, next: NextFunction) => {
+    const comment = new Comment({
+      text: req.body.text,
+      user: req.body.user,
+      post: req.body.post,
+      date_posted: Date.now(),
+    });
 
-  comment.save((err) => {
-    if (err) next(err);
+    comment.save((err) => {
+      if (err) next(err);
 
-    return res.status(200).json({ comment, message: "Success" });
-  });
-};
+      return res.status(200).json({ comment, message: "Success" });
+    });
+  },
+];
 
 export const delete_comment = (req: any, res: Response, next: NextFunction) => {
   console.log(req.user);
@@ -54,12 +54,4 @@ export const delete_comment = (req: any, res: Response, next: NextFunction) => {
       }
     }
   });
-  // Comment.findByIdAndDelete(req.params.commentid)
-  //   .exec()
-  //   .then((comment: any) => {
-  //     res.status(200).json({ message: "Comment delete sucess" });
-  //   })
-  //   .catch((err: Error) => {
-  //     return next(err);
-  //   });
 };
