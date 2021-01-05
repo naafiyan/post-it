@@ -12,7 +12,12 @@ import {
 // Get all posts
 router.get("/", get_posts);
 router.get("/:postid", get_post);
-router.delete("/:postid", delete_post);
+router.delete(
+  // Major BUG other users can delete others comments???
+  "/:postid",
+  passport.authenticate("jwt", { session: false }),
+  delete_post
+);
 router.post(
   "/new",
 

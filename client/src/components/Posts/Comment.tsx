@@ -6,7 +6,8 @@ import { FaTrashAlt } from "react-icons/fa";
 export function CommentForm(props: any) {
   const [text, setText] = useState("");
 
-  const { user, post, update, setUpdate } = props;
+  const { post, update, setUpdate } = props;
+  const { user } = useContext(UserContext);
 
   const handleSubmitComment = (form: any) => {
     form.preventDefault();
@@ -58,7 +59,13 @@ export function Comment(props: any) {
 
   const handleDelete = () => {
     axios
-      .delete("http://localhost:3000/comments/" + comment._id)
+      .delete("http://localhost:3000/comments/" + comment._id, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("id_token") || ""
+          )}`,
+        },
+      })
       .then((res) => {
         updateComments(comment);
       })
@@ -68,22 +75,19 @@ export function Comment(props: any) {
   useEffect(() => {
     if (user) {
       if (user._id === comment.user._id) {
-        setIsCommentUser(true);
+        return setIsCommentUser(true);
       }
-    } else {
-      setIsCommentUser(false);
     }
+    setIsCommentUser(false);
   }, [user]);
 
   return (
     <div>
       {comment.text} {comment.user.username}{" "}
-      {isCommentUser ? (
+      {isCommentUser && (
         <button onClick={handleDelete}>
           <FaTrashAlt />
         </button>
-      ) : (
-        <span></span>
       )}
     </div>
   );

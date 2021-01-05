@@ -42,7 +42,13 @@ export default function PostCard(props: any) {
 
   const handleDelete = () => {
     axios
-      .delete("http://localhost:3000/posts/" + post._id)
+      .delete("http://localhost:3000/posts/" + post._id, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("id_token") || ""
+          )}`,
+        },
+      })
       .then((res) => {
         updatePosts(post);
         // global post context that updates when post is deleted
