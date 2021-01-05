@@ -14,10 +14,25 @@ router.get("/", get_posts);
 router.get("/:postid", get_post);
 router.delete("/:postid", delete_post);
 
-router.post("/new", [
+router.post(
+  "/new",
+
   passport.authenticate("jwt", { session: false }),
-  // figure out why it doesn't work
-  new_post,
-]);
+
+  // function (req, res, next) {
+  //   passport.authenticate(
+  //     "jwt",
+  //     { session: false },
+  //     function (err: any, user: any, info: any) {
+  //       console.log(err);
+  //       console.log(user);
+  //       console.log(info);
+  //     }
+  //   )(req, res);
+  // },
+
+  // debug jw
+  new_post
+);
 
 module.exports = router;

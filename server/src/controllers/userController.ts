@@ -9,63 +9,11 @@ import User from "../models/user";
 
 // TODO: implement jwt
 
-// setting up passport
-// setting up local strategy
-passport.use(
-  new LocalStrategy((username: string, password: string, done: any) => {
-    User.findOne({ username: username }, (err: any, user: any) => {
-      if (err) return done(err);
-      if (!user) return done(null, false, { message: "Incorrect username" });
-      bcrypt.compare(password, user.password, (err: any, res: any) => {
-        if (res) {
-          return done(null, user);
-        }
-        if (!res) {
-          // Password don't match
-          return done(null, false, { msg: "Incorrect password" });
-        }
-        return done(null, user, { message: "Logged In successfully" });
-      });
-    });
-  })
-);
-
-passport.use(
-  new JWTStrategy(
-    {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
-      passReqToCallback: true,
-    },
-    (jwtPayload: any, done: any) => {
-      User.findById(jwtPayload._id)
-        .then((user: any) => {
-          return done(null, user);
-        })
-        .catch((err: any) =>
-          done(err, false, { message: "Token not matched" })
-        );
-      return done(null, jwtPayload);
-    }
-  )
-);
-
-passport.serializeUser(function (user: any, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err: any, user: any) {
-    done(err, user);
-  });
-});
-
 export const login_user = (req: any, res: any, next: any) => {
   passport.authenticate("local", { session: false }, (err, user, info) => {
     if (err || !user) {
-      return res.status(400).json({
+      return res.json({
         message: "Could not authenticate",
-        user,
       });
     }
     if (err) res.send(err);
@@ -74,9 +22,9 @@ export const login_user = (req: any, res: any, next: any) => {
     jwt.sign(
       { _id: user._id },
       process.env.JWT_SECRET || "",
-      {
-        expiresIn: process.env.JWT_EXPIRES_IN,
-      },
+      // {
+      //   expiresIn: process.env.JWT_EXPIRES_IN,
+      // },
       (err: any, token: any) => {
         if (err) next(err);
         res.status(200).json({
@@ -89,46 +37,40 @@ export const login_user = (req: any, res: any, next: any) => {
 };
 
 export const signup_user = (req: any, res: any, next: any) => {
-  // const { username } = req.body;
-  bcrypt.hash(req.body.password, 10, (err: any, hashedPassword: any) => {
-    if (err) next(err);
+  const { username, password, email } = req.body;
+  User.findOne(
+    { username },
+    (err: any, user: { username: string; password: string; email: string }) => {
+      if (user)
+        return res.json({ message: "User with this username already exists" });
 
-    // add checks for same email
-    // User.findOne({ username: username }, (err: any, user: any) => {
-    //   if (err) next(err);
-    //   if (user) {
-    //     return res
-    //       .status(400)
-    //       .json({ message: "User with username already exists!" });
-    //   }
-    // });
-    // Success so hash password and save user
-    const user = new User({
-      username: req.body.username,
-      password: hashedPassword,
-      email: req.body.email,
-    });
-    user.save((err: any) => {
-      if (err) next(err);
+      bcrypt.hash(password, 10, (err, hashedPassword) => {
+        if (err) console.log(err);
+        const user: any = new User({
+          username: username,
+          password: hashedPassword,
+          email: email,
+        });
 
-      // Success
+        user.save((err: any) => {
+          if (err) throw Error(err);
+          // saved
 
-      jwt.sign(
-        { _id: user._id },
-        process.env.JWT_SECRET || "",
-        {
-          expiresIn: process.env.JWT_EXPIRES_IN,
-        },
-        (err: any, token: any) => {
-          if (err) next(err);
+          const token = jwt.sign(
+            { _id: user._id, username: user.username },
+            process.env.JWT_SECRET || ""
+            //{ expiresIn: process.env.JWT_EXPIRES_IN }
+          );
+
           res.status(200).json({
-            token: token,
+            token,
             user: user,
+            message: "Signed up Successfully",
           });
-        }
-      );
-    });
-  });
+        });
+      });
+    }
+  );
 };
 
 // Get one user

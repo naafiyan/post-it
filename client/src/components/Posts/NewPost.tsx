@@ -10,15 +10,17 @@ export default function NewPost() {
 
   const handleSubmit = (form: any) => {
     form.preventDefault();
+    console.log(JSON.parse(localStorage.getItem("user") || ""));
+    const userData = JSON.parse(localStorage.getItem("user") || "");
     axios
       .post(
         "http://localhost:3000/posts/new",
-        { title, text, user: user.user },
+        { title, text, user: userData },
         {
           headers: {
-            Authorization: `bearer ${
-              JSON.parse(localStorage.getItem("user") || "").token
-            }`,
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("id_token") || ""
+            )}`,
           },
         }
       )
