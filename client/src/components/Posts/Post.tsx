@@ -16,6 +16,9 @@ export default function Posts({ match }: any) {
       .catch((err) => console.log(err));
   }, []);
 
+  // Refactor loading comments
+  // Repeated in PostCard.tsx
+
   const loadComments = () => {
     axios
       .get("http://localhost:3000/comments/" + match.params.id)
