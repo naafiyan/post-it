@@ -49,7 +49,11 @@ export const signup_user = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("email", "Email must be specified").trim().isLength({ min: 1 }).escape(),
+  body("email", "Email must be specified")
+    .trim()
+    .isEmail()
+    .isLength({ min: 1 })
+    .escape(),
 
   (req: Request, res: Response, next: NextFunction) => {
     const { username, password, email } = req.body;
