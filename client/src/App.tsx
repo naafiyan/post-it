@@ -20,13 +20,12 @@ function App() {
     <UserProvider>
       <PostProvider>
         <Router>
-          <div className="App h-screen">
+          <div className="App h-screen bg-gray-100">
             <Navbar />
             <Switch>
               <Route path="/" exact component={PostsPage} />
               <Route path="/login" exact component={Login} />
               <Route path="/sign-up" exact component={Signup} />
-              <Route path="/posts/new" exact component={NewPost} />
               <Route path="/posts/:id" exact component={Post} />
               <Route path="/users/:id" exact component={User} />
             </Switch>

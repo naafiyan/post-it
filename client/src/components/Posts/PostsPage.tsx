@@ -27,7 +27,7 @@ export default function PostsPage() {
           <NewPost />
         </span>
       )}
-      {!user && <p>You must be logged in to post!</p>}
+      {!user && <p className="my-4">You must be logged in to post!</p>}
       <div className="flex flex-col items-center w-100">
         <ul className="w-full">
           {posts.map((post: any) => (

@@ -39,16 +39,17 @@ export default function PostCard(props: any) {
 
   return (
     <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-20 max-w-md md:max-2-2xl">
-      <Link to={"/posts/" + post._id}>
-        <div className="my-2 mx-2">
+      <div className="my-2 mx-2">
+        <Link to={"/users/" + post.user._id}>
           <p className="text-s">{post.user.username}</p>
-
+        </Link>
+        <Link to={"/posts/" + post._id}>
           <p className="text-left mx-4 py-5 px-20">{post.text}</p>
-        </div>
-      </Link>
+        </Link>
+      </div>
 
       <div>
-        <p className="text-xs text-right mx-2">{date_posted_formatted}</p>
+        <p className="text-xs text-right py-2 px-2">{date_posted_formatted}</p>
         {isPostUser && <button onClick={handleDelete}>Delete</button>}
       </div>
     </div>

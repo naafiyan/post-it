@@ -25,24 +25,41 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex justify-start h-10vh bg-blue-400">
-      <div className="m-auto">
-        <NavLink to="/">Posts</NavLink>
+    <div className="flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-gray-800 text-white shadow sm:items-baseline w-full">
+      <div className="mb-2 sm:mb-0">
+        <NavLink to="/">
+          <p className="text-2xl no-underline text-grey-darkest hover:text-blue-dark">
+            Posts
+          </p>
+        </NavLink>
       </div>
 
       <div className="mx-4 my-4">
         {isLoggedIn && (
           <div>
-            <button onClick={handleLogout}>Log Out</button>
+            <button
+              className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
           </div>
         )}
         {!isLoggedIn && (
           <div className="flex justify-end">
             <span className="mx-2">
-              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/login">
+                <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
+                  Login
+                </p>
+              </NavLink>
             </span>
             <span>
-              <NavLink to="/sign-up">Sign-Up</NavLink>
+              <NavLink to="/sign-up">
+                <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
+                  Sign Up
+                </p>
+              </NavLink>
             </span>
           </div>
         )}
