@@ -43,28 +43,3 @@ export const delete_post = (req: any, res: any, next: any) => {
     })
     .catch((err: any) => console.log(err));
 };
-
-export const new_comment = (req: any, res: any, next: any) => {
-  // sanitize fields
-
-  const comment = new Comment({
-    text: req.body.text,
-    user: req.body.user,
-    date_posted: Date.now(),
-  });
-
-  console.log(comment);
-
-  comment.save((err: any) => {
-    if (err) throw Error(err);
-    console.log(req.params.postid);
-
-    // Success
-    Post.findOneAndUpdate(
-      { _id: req.params.postid },
-      {
-        $push: { comments: comment },
-      }
-    );
-  });
-};

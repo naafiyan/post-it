@@ -12,6 +12,7 @@ let cors = require("cors");
 let indexRouter = require("./routes/index");
 let postsRouter = require("./routes/posts");
 let usersRouter = require("./routes/users");
+let commentsRouter = require("./routes/comments");
 
 const app = express();
 
@@ -33,5 +34,6 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/posts", postsRouter);
 app.use("/users", usersRouter);
+app.use("/comments", commentsRouter);
 
 app.listen(3000);

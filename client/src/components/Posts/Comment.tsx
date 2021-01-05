@@ -11,10 +11,21 @@ export function CommentForm(props: any) {
 
     console.log(text);
     axios
-      .post("http://localhost:3000/posts/" + post._id, {
-        text: text,
-        user: user,
-      })
+      .post(
+        "http://localhost:3000/comments/new",
+        {
+          text: text,
+          user: user,
+          post: post,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("id_token") || ""
+            )}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
       })

@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 let CommentSchema = new Schema({
   text: { type: String, required: true, minlength: 1, maxlength: 1000 },
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  post: { type: Schema.Types.ObjectId, ref: "Post", required: true },
   date_posted: { type: Date, required: true },
 });
 

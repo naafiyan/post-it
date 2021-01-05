@@ -6,4 +6,4 @@
 ./server/nodemon.json
 ./sever/.eslintcache
 
-./client/.eslintcache
+/client/.eslintcache

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { CommentForm } from "./Comment";
+import { CommentForm, Comments } from "./Comment";
 
 export default function Posts({ match }: any) {
   const [post, setPost]: any = useState();
+  const [comments, setComments]: any = useState([]);
 
   console.log(match.params.id);
   useEffect(() => {
@@ -15,6 +16,15 @@ export default function Posts({ match }: any) {
       .catch((err) => console.log(err));
   }, []);
 
+  const loadComments = () => {
+    axios
+      .get("http://localhost:3000/comments/" + match.params.id)
+      .then((res) => {
+        console.log(res.data);
+        setComments(res.data.comments);
+      });
+  };
+
   console.log(post);
 
   return (
@@ -25,6 +35,18 @@ export default function Posts({ match }: any) {
           <p>{post.user.username}</p>
           <p>{post.text}</p>
           <CommentForm post={post} user={post.user} />
+          <button onClick={loadComments}>Load Comment</button>
+          <ul>
+            {comments.map((comment: any) => {
+              return (
+                <li>
+                  <h1>
+                    {comment.text} {comment.user.username}
+                  </h1>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
       {!post && <h3>Post Not Found</h3>}

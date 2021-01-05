@@ -7,7 +7,6 @@ import {
   get_posts,
   new_post,
   delete_post,
-  new_comment,
 } from "../controllers/postController";
 
 // Get all posts
@@ -21,6 +20,5 @@ router.post(
   new_post
 );
 // post comment
-router.post("/:postid", new_comment);
 
 module.exports = router;
