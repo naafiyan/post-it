@@ -5,13 +5,17 @@ import { UserContext } from "../contexts/UserContext";
 import { useState } from "react";
 import axios from "axios";
 import { PostContext } from "../contexts/PostContext";
-import { Comment } from "./Comment";
+import { Comment, CommentForm } from "./Comment";
+
+import { FaTrashAlt } from "react-icons/fa";
 
 export default function PostCard(props: any) {
   const { post } = props;
   const { updatePosts } = props;
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const [showCommentForm, setShowCommentForm] = useState(false);
+  const [isCommentUpdate, setIsCommentUpdate] = useState(false);
 
   // format date better i.e. 2 hours ago, 5mins ago etc
   const date_posted_formatted = DateTime.fromISO(
@@ -47,12 +51,21 @@ export default function PostCard(props: any) {
       .catch((err) => console.log(err));
   };
 
-  const loadComments = () => {
+  const updateCommentsDelete = (comment: any) => {
+    const newComments = comments.filter((c: any) => c !== comment);
+    setComments(newComments);
+  };
+  // load comments
+  useEffect(() => {
     axios.get("http://localhost:3000/comments/" + post._id).then((res) => {
       console.log(res.data);
       setComments(res.data.comments);
-      setShowComments(true);
     });
+  }, [showComments, isCommentUpdate]);
+
+  const loadComments = () => {
+    setShowComments(true);
+    //setIsCommentUpdate(!isCommentUpdate);
   };
 
   return (
@@ -64,7 +77,24 @@ export default function PostCard(props: any) {
         <Link to={"/posts/" + post._id}>
           <p className="mx-4 py-5 px-20">{post.text}</p>
         </Link>
-
+        {showCommentForm ? (
+          <CommentForm
+            user={post.user}
+            post={post}
+            update={isCommentUpdate}
+            setUpdate={setIsCommentUpdate}
+          />
+        ) : (
+          <button
+            className="text-xs"
+            onClick={() => {
+              setShowCommentForm(true);
+              loadComments();
+            }}
+          >
+            Add Comment
+          </button>
+        )}
         {showComments ? (
           <div>
             <button onClick={() => setShowComments(false)}>
@@ -74,7 +104,10 @@ export default function PostCard(props: any) {
               {comments.map((comment) => {
                 return (
                   <li>
-                    <Comment comment={comment} />
+                    <Comment
+                      updateComments={updateCommentsDelete}
+                      comment={comment}
+                    />
                   </li>
                 );
               })}
@@ -89,7 +122,11 @@ export default function PostCard(props: any) {
 
       <div>
         <p className="text-xs py-2 px-2">{date_posted_formatted}</p>
-        {isPostUser && <button onClick={handleDelete}>Delete</button>}
+        {isPostUser && (
+          <button onClick={handleDelete}>
+            <FaTrashAlt />
+          </button>
+        )}
       </div>
     </div>
   );

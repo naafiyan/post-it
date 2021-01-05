@@ -13,7 +13,9 @@ export const get_comments = (
 
     // Success
     return res.status(200).json({ comments: comments });
-  }).populate("user");
+  })
+    .populate("user")
+    .sort([["date_posted", -1]]);
 };
 
 export const new_comment = (
@@ -35,4 +37,19 @@ export const new_comment = (
 
     return res.status(200).json({ comment, message: "Success" });
   });
+};
+
+export const delete_comment = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  Comment.findByIdAndDelete(req.params.commentid)
+    .exec()
+    .then((comment: any) => {
+      res.status(200).json({ message: "Comment delete sucess" });
+    })
+    .catch((err: Error) => {
+      return next(err);
+    });
 };
