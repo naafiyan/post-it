@@ -18,6 +18,8 @@ export default function Navbar() {
 
   const handleLogout = () => {
     axios.get("http://localhost:3000/users/log-out");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
     localStorage.removeItem("user");
     setUser(null);
   };

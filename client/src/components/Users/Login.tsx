@@ -12,13 +12,18 @@ export default function Login() {
   const handleSubmit = (form: any) => {
     form.preventDefault();
     axios
-      .post("http://localhost:3000/users/login", { username, password })
+      .post(
+        "http://localhost:3000/users/login",
+        { username, password }
+        //{ headers: { "Content-type": "application/json" } }
+      )
       .then((res) => {
         userContext.setUser(res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("id_token", JSON.stringify(res.data.token));
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         console.log(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
     form.target.reset();
   };
 
