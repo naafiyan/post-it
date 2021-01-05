@@ -111,6 +111,7 @@ export default function PostCard(props: any) {
                 return (
                   <li>
                     <Comment
+                      user={user}
                       updateComments={updateCommentsDelete}
                       comment={comment}
                     />

@@ -39,17 +39,27 @@ export const new_comment = (
   });
 };
 
-export const delete_comment = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  Comment.findByIdAndDelete(req.params.commentid)
-    .exec()
-    .then((comment: any) => {
-      res.status(200).json({ message: "Comment delete sucess" });
-    })
-    .catch((err: Error) => {
-      return next(err);
-    });
+export const delete_comment = (req: any, res: Response, next: NextFunction) => {
+  console.log(req.user);
+  Comment.findById(req.params.commentid, (err: Error, comment: any) => {
+    if (err) next(err);
+    if (req.user) {
+      if (comment.user._id == req.user._id) {
+        comment.delete((err: any) => {
+          if (err) next(err);
+
+          // Success
+          return res.status(200).json("Delete Success");
+        });
+      }
+    }
+  });
+  // Comment.findByIdAndDelete(req.params.commentid)
+  //   .exec()
+  //   .then((comment: any) => {
+  //     res.status(200).json({ message: "Comment delete sucess" });
+  //   })
+  //   .catch((err: Error) => {
+  //     return next(err);
+  //   });
 };

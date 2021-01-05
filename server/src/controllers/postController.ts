@@ -3,6 +3,7 @@ import Post from "../models/post";
 const { body, validationResult } = require("express-validator");
 
 import { NextFunction, Request, Response } from "express";
+import { nextTick } from "process";
 
 export const get_posts = (req: Request, res: Response, next: NextFunction) => {
   Post.find((err, posts) => {
@@ -35,11 +36,25 @@ export const new_post = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export const delete_post = (req: Request, res: Response) => {
-  Post.findByIdAndDelete(req.params.postid)
-    .exec()
-    .then((post: any) => {
-      res.status(200).json({ message: "Delete success" });
-    })
-    .catch((err: any) => console.log(err));
+export const delete_post = (req: any, res: Response, next: NextFunction) => {
+  console.log(req.user);
+  Post.findById(req.params.postid, (err: Error, post: any) => {
+    if (err) next(err);
+    if (req.user) {
+      if (post.user._id == req.user._id) {
+        post.delete((err: any) => {
+          if (err) next(err);
+
+          // Succes
+          return res.status(200).json("delet success");
+        });
+      }
+    }
+  });
+  // Post.findByIdAndDelete(req.params.postid)
+  //   .exec()
+  //   .then((post: any) => {
+  //     res.status(200).json({ message: "Delete success" });
+  //   })
+  //   .catch((err: any) => console.log(err));
 };
