@@ -54,6 +54,12 @@ export function CommentForm(props: any) {
 export function Comment(props: any) {
   const { comment, updateComments } = props;
 
+  // MAJOR BUG:
+  // Log in -> post comment -> can see delete button and it works
+  // Log out -> log into different account -> post comment -> cannot see delete button
+  // Refetch data/refresh page -> can see correct trash can
+  // BUT THEN trash can and delete functionality appears on other users' comments too??
+
   const { user } = useContext(UserContext);
   const [isCommentUser, setIsCommentUser] = useState(false);
 
