@@ -32,10 +32,9 @@ export default function PostsPage() {
         <div className="">
           <p className="ml-6 my-6">You must be logged in to post!</p>
         </div>
-      )}
+      )}{" "}
       <PostsList posts={posts} setPosts={setPosts} />
-
-      <div className="flex flex-col mr-6">
+      <div className="flex flex-col mx-10">
         <ul>
           <li>Max</li>
           <li>Max</li>

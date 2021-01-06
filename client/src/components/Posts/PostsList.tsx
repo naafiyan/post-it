@@ -12,7 +12,7 @@ export default function PostsList(props: any) {
   };
 
   return (
-    <div className="flex flex-col items-center w-100">
+    <div className="flex flex-col h-full items-center mx-auto w-full">
       <ul className="w-full">
         {posts.map((post: any) => (
           <li className="w-full" key={post._id}>

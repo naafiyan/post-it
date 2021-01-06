@@ -3,7 +3,8 @@ html * {
   font-family: "Open Sans", sans-serif !important;
 }
 
-html {
+body {
+  margin: 0 0 0 0;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

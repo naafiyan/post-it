@@ -36,7 +36,7 @@ export default function NewPost() {
   };
 
   return (
-    <div>
+    <div className="sticky mx-10">
       <h3 className="text-xl py-2 px-2">New Post</h3>
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <textarea
