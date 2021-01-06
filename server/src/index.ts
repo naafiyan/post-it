@@ -1,12 +1,12 @@
 import express from "express";
-import path from "path";
-import "dotenv/config";
+import * as dotenv from "dotenv";
 import mongoose from "mongoose";
-import passport from "passport";
 const session = require("express-session");
-require("./config/passport");
+import passport from "./config/passport";
+dotenv.config();
+import cors from "cors";
 
-let cors = require("cors");
+passport;
 
 // Routes variables
 let indexRouter = require("./routes/index");
@@ -36,4 +36,4 @@ app.use("/posts", postsRouter);
 app.use("/users", usersRouter);
 app.use("/comments", commentsRouter);
 
-app.listen(3000);
+app.listen(process.env.PORT || 8080);
