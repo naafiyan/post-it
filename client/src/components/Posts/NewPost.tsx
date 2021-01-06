@@ -36,21 +36,28 @@ export default function NewPost() {
 
   return (
     <div>
-      <h3>New Post</h3>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="text">Text:</label>
+      <h3 className="text-xl py-2 px-2">New Post</h3>
+      <form className="flex flex-col" onSubmit={handleSubmit}>
         <textarea
+          className="resize-none w-80 h-64 py-2 px-2"
           onChange={(e) => {
             setText(e.target.value);
             setCount(e.target.value.length);
           }}
-          placeholder="Enter Text"
+          placeholder="Enter Post"
           minLength={1}
           maxLength={300}
         ></textarea>
-        <span>{count}/300</span>
+        <div className="my-4 flex justify-between">
+          <span className="text-xl py-2 px-4">{count}/300</span>
 
-        <button type="submit">Post</button>
+          <button
+            className="border-solid text-white bg-blue-600 w-max py-2 px-4 rounded-lg transition duration-200 ease-in-out transform hover:bg-blue-700 hover:scale-110"
+            type="submit"
+          >
+            Post
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -1,8 +1,4 @@
 import passport from "passport";
-var JWTStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-
-var LocalStrategy = require("passport-local").Strategy;
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/user";

@@ -38,14 +38,15 @@ export function CommentForm(props: any) {
 
   return (
     <div>
-      <p>Comments</p>
       <form onSubmit={handleSubmitComment}>
         <input
           type="text"
-          placeholder="Enter text"
+          placeholder="Enter Comment"
           onChange={(e) => setText(e.target.value)}
         ></input>
-        <button type="submit">Post Comment</button>
+        <button className="text-sm" type="submit">
+          Post Comment
+        </button>
       </form>
     </div>
   );
@@ -84,8 +85,9 @@ export function Comment(props: any) {
       if (user._id === comment.user._id) {
         return setIsCommentUser(true);
       }
+    } else {
+      setIsCommentUser(false);
     }
-    setIsCommentUser(false);
   }, [user]);
 
   return (

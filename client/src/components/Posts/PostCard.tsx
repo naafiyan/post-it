@@ -75,65 +75,58 @@ export default function PostCard(props: any) {
   };
 
   return (
-    <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-20 max-w-md md:max-2-2xl">
+    <div className="flex flex-col bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-2-2xl trasnsition duration-200 transform hover:scale-110">
       <div className="my-2 mx-2">
         <Link to={"/users/" + post.user._id}>
           <p className="text-s">{post.user.username}</p>
         </Link>
-        <Link to={"/posts/" + post._id}>
-          <p className="mx-4 py-5 px-20">{post.text}</p>
-        </Link>
-        {showCommentForm ? (
-          <CommentForm
-            user={post.user}
-            post={post}
-            update={isCommentUpdate}
-            setUpdate={setIsCommentUpdate}
-          />
-        ) : (
-          <button
-            className="text-xs"
-            onClick={() => {
-              setShowCommentForm(true);
-              loadComments();
-            }}
-          >
-            Add Comment
-          </button>
-        )}
-        {showComments ? (
-          <div>
-            <button onClick={() => setShowComments(false)}>
-              Hide Comments
-            </button>
-            <ul>
-              {comments.map((comment) => {
-                return (
-                  <li>
-                    <Comment
-                      user={user}
-                      updateComments={updateCommentsDelete}
-                      comment={comment}
-                    />
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ) : (
-          <button className="text-xs" onClick={loadComments}>
-            View Comments
-          </button>
-        )}
-      </div>
-
-      <div>
         <p className="text-xs py-2 px-2">{date_posted_formatted}</p>
-        {isPostUser && (
-          <button onClick={handleDelete}>
-            <FaTrashAlt />
-          </button>
-        )}
+        <Link to={"/posts/" + post._id}>
+          <p className="mx-4 py-2">{post.text}</p>
+        </Link>
+
+        <div className="flex justify-between">
+          {showComments ? (
+            <div>
+              <button
+                className="text-sm"
+                onClick={() => setShowComments(false)}
+              >
+                Hide Comments
+              </button>
+              {user && (
+                <CommentForm
+                  user={post.user}
+                  post={post}
+                  update={isCommentUpdate}
+                  setUpdate={setIsCommentUpdate}
+                />
+              )}
+              <ul>
+                {comments.map((comment) => {
+                  return (
+                    <li>
+                      <Comment
+                        user={user}
+                        updateComments={updateCommentsDelete}
+                        comment={comment}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : (
+            <button className="text-sm" onClick={loadComments}>
+              Comments
+            </button>
+          )}
+          {isPostUser && (
+            <button onClick={handleDelete}>
+              <FaTrashAlt />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

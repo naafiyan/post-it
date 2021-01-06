@@ -30,7 +30,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex flex-col text-center sm:flex-row sm:text-left sm:justify-between py-4 px-6 bg-gray-800 text-white shadow sm:items-baseline w-full">
+    <div className="flex flex-col text-center sm:flex-row sm:text-left sm:justify-between px-6 bg-gray-800 text-white shadow sm:items-baseline w-full">
       <div className="mb-2 sm:mb-0">
         <NavLink to="/">
           <p className="text-2xl no-underline text-grey-darkest hover:text-blue-dark">

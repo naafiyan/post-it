@@ -21,20 +21,33 @@ export default function PostsPage() {
   };
 
   return (
-    <div>
-      {user && (
-        <span className="my-4 w-full mr-4">
+    <div className="flex justify-evenly">
+      {user ? (
+        <div className="ml-6 my-6">
           <NewPost />
-        </span>
+        </div>
+      ) : (
+        <div className="">
+          <p className="ml-6 my-6">You must be logged in to post!</p>
+        </div>
       )}
-      {!user && <p className="my-4">You must be logged in to post!</p>}
-      <div className="flex flex-col flex-grow items-center w-100">
+
+      <div className="flex flex-col items-center w-100">
         <ul className="w-full">
           {posts.map((post: any) => (
             <li className="w-full" key={post._id}>
               <PostCard post={post} updatePosts={updatePosts} />
             </li>
           ))}
+        </ul>
+      </div>
+
+      <div className="flex flex-col mr-6">
+        <ul>
+          <li>Max</li>
+          <li>Max</li>
+          <li>Max</li>
+          <li>Max</li>
         </ul>
       </div>
     </div>
