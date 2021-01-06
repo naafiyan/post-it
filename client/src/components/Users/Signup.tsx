@@ -1,5 +1,10 @@
 import axios from "axios";
+import { useContext } from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { PostContext } from "../contexts/PostContext";
+import { UserContext } from "../contexts/UserContext";
+import { handleLogin } from "../utils/UserActions";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -7,6 +12,11 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
 
   const [errors, setErrors]: any = useState({});
+
+  const userContext = useContext(UserContext);
+  const { update, setUpdate } = useContext(PostContext);
+
+  const history = useHistory();
 
   const handleValidation = (form: any) => {
     // Add more validation i.e. username is already taken
@@ -89,7 +99,15 @@ export default function SignUp() {
         { headers: { "Content-type": "application/json" } }
       )
       .then((res) => {
-        console.log(res.data);
+        handleLogin(
+          username,
+          password,
+          userContext,
+          update,
+          setUpdate,
+          history
+        );
+        form.target.reset();
       })
       .catch((err) => console.log(err));
   };
