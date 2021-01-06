@@ -6,6 +6,7 @@ import {
   signup_user,
   get_users,
   get_user,
+  get_user_posts,
 } from "../controllers/userController";
 
 // Sign-Up
@@ -23,6 +24,9 @@ router.get("/log-out", (req, res) => {
 router.get("/", get_users);
 
 router.get("/:userid", get_user);
+
+// get user's posts
+router.get("/:userid/posts", get_user_posts);
 
 // check authentication
 router.get("/checkAuth", (req, res) => {

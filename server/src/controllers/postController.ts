@@ -39,6 +39,7 @@ export const new_post = [
 ];
 
 export const delete_post = (req: any, res: Response, next: NextFunction) => {
+  // make sure to delete all associated comments
   console.log(req.user);
   Post.findById(req.params.postid, (err: Error, post: any) => {
     if (err) next(err);

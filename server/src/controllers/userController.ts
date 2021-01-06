@@ -2,6 +2,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
+import Post from "../models/post";
 
 import { body, validationResult } from "express-validator";
 
@@ -99,6 +100,17 @@ export const get_user = (req: Request, res: Response, next: NextFunction) => {
   User.findById(req.params.userid, (err: any, user: any) => {
     res.json(user);
   });
+};
+
+export const get_user_posts = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  Post.find({ user: req.params.userid }, (err: any, posts: any) => {
+    console.log(req.params.userid);
+    res.json(posts);
+  }).populate("user");
 };
 
 // Get all users

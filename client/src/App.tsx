@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./components/Users/Login";
 import Post from "./components/Posts/Post";
-import User from "./components/Users/User";
+import User from "./components/Users/Profile/User";
 import PostsPage from "./components/Posts/PostsPage";
 import Signup from "./components/Users/Signup";
 import NewPost from "./components/Posts/NewPost";
