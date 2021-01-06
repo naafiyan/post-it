@@ -79,7 +79,7 @@ export default function PostCard(props: any) {
   };
 
   return (
-    <div className="flex flex-col bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-2-2xl trasnsition duration-200 transform hover:scale-110">
+    <div className="flex flex-col bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-2-2xl transition duration-200 transform hover:scale-110">
       <div className="my-2 mx-2">
         <Link to={"/users/" + post.user._id}>
           <div className="flex flex-grow justify-start my-2 mx-2">
