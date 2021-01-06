@@ -6,8 +6,82 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
+  const [errors, setErrors]: any = useState({});
+
+  const handleValidation = (form: any) => {
+    // Add more validation i.e. username is already taken
+
+    const fields: any = {
+      username: form.target.username.value,
+      password: form.target.password.value,
+      email: form.target.email.value,
+    };
+    const locErrors = {
+      username: "",
+      password: "",
+      email: "",
+    };
+    let isValid = true;
+    //Name
+    if (!fields["username"]) {
+      isValid = false;
+      locErrors["username"] = "Cannot be empty";
+    }
+
+    if (typeof fields["username"] !== "undefined") {
+      if (!fields["username"].match(/^[a-zA-Z]+$/)) {
+        isValid = false;
+        locErrors["username"] = "Can only contain letters";
+      }
+    }
+
+    // Password
+    if (!fields["password"]) {
+      isValid = false;
+      locErrors["password"] = "Cannot be empty";
+    }
+
+    if (typeof fields["password"] !== "undefined") {
+      if (fields["password"].length < 8) {
+        isValid = false;
+        locErrors["password"] = "Password must be atleast 8 characters";
+      }
+    }
+
+    //Email
+    if (!fields["email"]) {
+      isValid = false;
+      locErrors["email"] = "Cannot be empty";
+    }
+
+    if (typeof fields["email"] !== "undefined") {
+      let lastAtPos = fields["email"].lastIndexOf("@");
+      let lastDotPos = fields["email"].lastIndexOf(".");
+
+      if (
+        !(
+          lastAtPos < lastDotPos &&
+          lastAtPos > 0 &&
+          fields["email"].indexOf("@@") == -1 &&
+          lastDotPos > 2 &&
+          fields["email"].length - lastDotPos > 2
+        )
+      ) {
+        isValid = false;
+        locErrors["email"] = "Email is not valid (i.e. abc@mail.com)";
+      }
+    }
+    setErrors(locErrors);
+    return isValid;
+  };
+
   const handleSubmit = (form: any) => {
     form.preventDefault();
+    if (!handleValidation(form)) {
+      console.log("form err");
+      return;
+    }
+    console.log(form.target.username.value);
     axios
       .post(
         "http://localhost:3000/users/sign-up",
@@ -41,7 +115,8 @@ export default function SignUp() {
               className="block text-xs font-semibold text-gray-600 uppercase text-left"
               htmlFor="username"
             >
-              Username:
+              Username:{" "}
+              <span className="text-red-500">{errors["username"]}</span>
             </label>
             <input
               onChange={(e) => setUsername(e.target.value)}
@@ -58,7 +133,8 @@ export default function SignUp() {
               htmlFor="password"
               className="block mt-2 text-xs font-semibold text-gray-600 uppercase text-left"
             >
-              Password:
+              Password:{" "}
+              <span className="text-red-500">{errors["password"]}</span>
             </label>
             <input
               onChange={(e) => setPassword(e.target.value)}
@@ -75,7 +151,7 @@ export default function SignUp() {
               htmlFor="email"
               className="block mt-2 text-xs font-semibold text-gray-600 uppercase text-left"
             >
-              Email:
+              Email: <span className="text-red-500">{errors["email"]}</span>
             </label>
             <input
               className="block w-full py-3 px-1 mt-2 mb-4
