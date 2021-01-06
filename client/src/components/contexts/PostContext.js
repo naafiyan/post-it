@@ -17,16 +17,8 @@ export function PostProvider({ children }) {
       .catch((err) => console.log(err));
   }, [update]);
 
-  const updatePosts = (post) => {
-    const newPosts = posts.filter((a) => a !== post);
-    console.log(newPosts);
-    setPosts(posts.filter((a) => a !== post));
-  };
-
   return (
-    <PostContext.Provider
-      value={{ posts, setPosts, update, setUpdate, updatePosts }}
-    >
+    <PostContext.Provider value={{ posts, setPosts, update, setUpdate }}>
       {children}
     </PostContext.Provider>
   );

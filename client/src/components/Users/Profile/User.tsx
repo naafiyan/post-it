@@ -39,7 +39,7 @@ export default function User({ match }: any) {
     <div className="flex justify-between">
       {/* side nav*/}
       <Sidebar user={user} />
-      {posts && <PostsList posts={posts} />}
+      {posts && <PostsList posts={posts} setPosts={setPosts} />}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import PostCard from "./PostCard";
@@ -11,10 +11,16 @@ export default function PostsPage() {
   //const [posts, setPosts]: any = useState([]);
 
   const { user } = useContext(UserContext);
-  const { posts } = useContext(PostContext);
+  const { posts, setPosts, setUpdate, update } = useContext(PostContext);
+
+  useEffect(() => {
+    setUpdate(!update);
+  }, []);
 
   // maybe create an auto refresh with setTimeout
   // could do it in PostContext
+
+  // implementation for postpage
 
   return (
     <div className="flex justify-evenly">
@@ -27,7 +33,7 @@ export default function PostsPage() {
           <p className="ml-6 my-6">You must be logged in to post!</p>
         </div>
       )}
-      <PostsList posts={posts} />
+      <PostsList posts={posts} setPosts={setPosts} />
 
       <div className="flex flex-col mr-6">
         <ul>

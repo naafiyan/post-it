@@ -3,8 +3,13 @@ import { PostContext } from "../contexts/PostContext";
 import PostCard from "./PostCard";
 
 export default function PostsList(props: any) {
-  const { posts } = props;
-  const { updatePosts } = useContext(PostContext);
+  const { posts, setPosts } = props;
+
+  const updatePosts = (post: any) => {
+    const newPosts = posts.filter((a: any) => a !== post);
+    console.log(newPosts);
+    setPosts(posts.filter((a: any) => a !== post));
+  };
 
   return (
     <div className="flex flex-col items-center w-100">
