@@ -7,6 +7,8 @@ import axios from "axios";
 import { PostContext } from "../contexts/PostContext";
 import { Comment, CommentForm } from "./Comment";
 
+import API_URL from "../../config/urls";
+
 // UI
 import { FaTrashAlt } from "react-icons/fa";
 import Avatar from "@material-ui/core/Avatar";
@@ -46,7 +48,7 @@ export default function PostCard(props: any) {
 
   const handleDelete = () => {
     axios
-      .delete("http://localhost:3000/posts/" + post._id, {
+      .delete(API_URL + "/posts/" + post._id, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
             localStorage.getItem("id_token") || ""
@@ -67,7 +69,7 @@ export default function PostCard(props: any) {
   };
   // load comments
   useEffect(() => {
-    axios.get("http://localhost:3000/comments/" + post._id).then((res) => {
+    axios.get(API_URL + "/comments/" + post._id).then((res) => {
       console.log(res.data);
       setComments(res.data.comments);
     });

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CommentForm, Comment } from "./Comment";
+import API_URL from "../../config/urls";
 
 export default function Posts({ match }: any) {
   const [post, setPost]: any = useState();
@@ -9,7 +10,7 @@ export default function Posts({ match }: any) {
   console.log(match.params.id);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/posts/" + match.params.id)
+      .get(API_URL + "/posts/" + match.params.id)
       .then((res) => {
         setPost(res.data.post);
       })
@@ -20,12 +21,10 @@ export default function Posts({ match }: any) {
   // Repeated in PostCard.tsx
 
   const loadComments = () => {
-    axios
-      .get("http://localhost:3000/comments/" + match.params.id)
-      .then((res) => {
-        console.log(res.data);
-        setComments(res.data.comments);
-      });
+    axios.get(API_URL + "/comments/" + match.params.id).then((res) => {
+      console.log(res.data);
+      setComments(res.data.comments);
+    });
   };
 
   console.log(post);

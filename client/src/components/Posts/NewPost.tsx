@@ -4,6 +4,8 @@ import axios from "axios";
 
 import { PostContext } from "../contexts/PostContext";
 
+import API_URL from "../../config/urls";
+
 export default function NewPost() {
   const { update, setUpdate } = useContext(PostContext);
   const [text, setText] = useState("");
@@ -15,7 +17,7 @@ export default function NewPost() {
     const userData = JSON.parse(localStorage.getItem("user") || "");
     axios
       .post(
-        "http://localhost:3000/posts/new",
+        API_URL + "/posts/new",
         { text, user: userData },
         {
           headers: {

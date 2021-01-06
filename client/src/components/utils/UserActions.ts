@@ -1,4 +1,5 @@
 import axios from "axios";
+import API_URL from "../../config/urls";
 
 export const handleLogin = (
   username: string,
@@ -10,7 +11,7 @@ export const handleLogin = (
 ) => {
   axios
     .post(
-      "http://localhost:3000/users/login",
+      API_URL + "/users/login",
       { username, password }
       //{ headers: { "Content-type": "application/json" } }
     )
@@ -26,7 +27,7 @@ export const handleLogin = (
 };
 
 export const handleLogout = (history: any, setUser: any) => {
-  axios.get("http://localhost:3000/users/log-out");
+  axios.get(API_URL + "/users/log-out");
   localStorage.removeItem("id_token");
   localStorage.removeItem("expires_at");
   localStorage.removeItem("user");

@@ -3,6 +3,8 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import PostsList from "../../Posts/PostsList";
 
+import API_URL from "../../../config/urls";
+
 export default function User({ match }: any) {
   const [user, setUser]: any = useState();
   const [isLoading, setIsLoading]: any = useState(true);
@@ -12,7 +14,7 @@ export default function User({ match }: any) {
   console.log(match.params.id);
   useEffect(() => {
     axios
-      .get("http://localhost:3000/users/" + match.params.id)
+      .get(API_URL + "/users/" + match.params.id)
       .then((res) => {
         console.log(res.data);
         setUser(res.data);

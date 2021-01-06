@@ -6,6 +6,8 @@ import { PostContext } from "../contexts/PostContext";
 import { UserContext } from "../contexts/UserContext";
 import { handleLogin } from "../utils/UserActions";
 
+import API_URL from "../../config/urls";
+
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -94,7 +96,7 @@ export default function SignUp() {
     console.log(form.target.username.value);
     axios
       .post(
-        "http://localhost:3000/users/sign-up",
+        API_URL + "/users/sign-up",
         { username, password, email },
         { headers: { "Content-type": "application/json" } }
       )

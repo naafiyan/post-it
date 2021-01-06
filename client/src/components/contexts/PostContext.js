@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_URL from "../../config/urls";
 
 export const PostContext = React.createContext();
 
@@ -9,7 +10,7 @@ export function PostProvider({ children }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/posts/")
+      .get(API_URL + "/posts/")
       .then((res) => {
         console.log(res.data.posts);
         setPosts(res.data.posts);
