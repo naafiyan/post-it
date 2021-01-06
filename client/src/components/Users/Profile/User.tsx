@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
 import PostsList from "../../Posts/PostsList";
+import NewPost from "../../Posts/NewPost";
 
 import API_URL from "../../../config/urls";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function User({ match }: any) {
   const [user, setUser]: any = useState();
   const [isLoading, setIsLoading]: any = useState(true);
+
+  const loggedInUser = useContext(UserContext).user;
+  console.log(loggedInUser);
 
   const [posts, setPosts] = useState([]);
 
@@ -26,7 +31,7 @@ export default function User({ match }: any) {
   // Once user is loaded, fetch posts made by user
   useEffect(() => {
     axios
-      .get("http://localhost:3000/users/" + match.params.id + "/posts")
+      .get(API_URL + "/users/" + match.params.id + "/posts")
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);

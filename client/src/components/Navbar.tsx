@@ -6,6 +6,8 @@ import axios from "axios";
 
 import { useHistory } from "react-router-dom";
 
+import { Avatar } from "@material-ui/core";
+
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,6 +49,7 @@ export default function Navbar() {
                 {user.username}
               </p>
             </NavLink>
+            <Avatar className="mx-4" src="" alt="Naafiyan Ahmed" />
             <button
               className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"
               onClick={handleLogout}

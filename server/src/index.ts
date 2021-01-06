@@ -1,9 +1,10 @@
 import express from "express";
 import * as dotenv from "dotenv";
+dotenv.config();
+
 import mongoose from "mongoose";
 const session = require("express-session");
 import passport from "./config/passport";
-dotenv.config();
 import cors from "cors";
 
 passport;
