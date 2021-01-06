@@ -31,6 +31,7 @@ export default function NewPost() {
       })
       .catch((err) => console.log(err));
     setCount(0);
+    setText("");
     form.target.reset();
   };
 

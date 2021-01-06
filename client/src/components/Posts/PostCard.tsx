@@ -7,7 +7,11 @@ import axios from "axios";
 import { PostContext } from "../contexts/PostContext";
 import { Comment, CommentForm } from "./Comment";
 
+// UI
 import { FaTrashAlt } from "react-icons/fa";
+import Avatar from "@material-ui/core/Avatar";
+
+const placeHolderAvatar = "";
 
 export default function PostCard(props: any) {
   const { post } = props;
@@ -78,31 +82,37 @@ export default function PostCard(props: any) {
     <div className="flex flex-col bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-2-2xl trasnsition duration-200 transform hover:scale-110">
       <div className="my-2 mx-2">
         <Link to={"/users/" + post.user._id}>
-          <p className="text-s">{post.user.username}</p>
+          <div className="flex flex-grow justify-start my-2 mx-2">
+            <Avatar alt="Naafiyan Ahmed" src={placeHolderAvatar} />
+            <p className="text-s py-2 px-2">{post.user.username}</p>
+            <p className="text-xs py-2 px-2">{date_posted_formatted}</p>
+          </div>
         </Link>
-        <p className="text-xs py-2 px-2">{date_posted_formatted}</p>
+
         <Link to={"/posts/" + post._id}>
           <p className="mx-4 py-2">{post.text}</p>
         </Link>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between px-2 py-2 ">
           {showComments ? (
             <div>
               <button
-                className="text-sm"
+                className="text-sm border-solid rounded-sm bg-gray-100 py-2 px-2 rounded-lg hover:bg-gray-200"
                 onClick={() => setShowComments(false)}
               >
                 Hide Comments
               </button>
               {user && (
-                <CommentForm
-                  user={post.user}
-                  post={post}
-                  update={isCommentUpdate}
-                  setUpdate={setIsCommentUpdate}
-                />
+                <div className="my-2">
+                  <CommentForm
+                    user={post.user}
+                    post={post}
+                    update={isCommentUpdate}
+                    setUpdate={setIsCommentUpdate}
+                  />
+                </div>
               )}
-              <ul>
+              <ul className="my-2">
                 {comments.map((comment) => {
                   return (
                     <li>
@@ -117,7 +127,10 @@ export default function PostCard(props: any) {
               </ul>
             </div>
           ) : (
-            <button className="text-sm" onClick={loadComments}>
+            <button
+              className="text-sm border-solid rounded-sm bg-gray-100 py-2 px-2 rounded-lg hover:bg-gray-200"
+              onClick={loadComments}
+            >
               Comments
             </button>
           )}

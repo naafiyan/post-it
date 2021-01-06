@@ -32,6 +32,7 @@ export function CommentForm(props: any) {
       .then((res) => {
         console.log(res.data);
         setUpdate(!update);
+        setText("");
       })
       .catch((err) => console.log(err));
   };
@@ -44,8 +45,11 @@ export function CommentForm(props: any) {
           placeholder="Enter Comment"
           onChange={(e) => setText(e.target.value)}
         ></input>
-        <button className="text-sm" type="submit">
-          Post Comment
+        <button
+          className="border-solid text-white bg-blue-600 w-max py-2 px-2 mx-2 rounded-lg text-sm transition duration-200 ease-in-out transform hover:bg-blue-700 hover:scale-110"
+          type="submit"
+        >
+          Post
         </button>
       </form>
     </div>
