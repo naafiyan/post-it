@@ -30,6 +30,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // routes
+// connects with react app
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
+
+// entry point for api
 app.use("/api", apiRouter);
 
 app.listen(process.env.PORT || 8080);
