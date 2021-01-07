@@ -31,7 +31,7 @@ app.use(cors());
 
 // routes
 // connects with react app
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
+app.use("/", express.static(path.join(__dirname, "..", "client", "build")));
 
 // entry point for api
 app.use("/api", apiRouter);
