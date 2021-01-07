@@ -10,10 +10,7 @@ import cors from "cors";
 passport;
 
 // Routes variables
-let indexRouter = require("./routes/index");
-let postsRouter = require("./routes/posts");
-let usersRouter = require("./routes/users");
-let commentsRouter = require("./routes/comments");
+let apiRouter = require("./routes/api");
 
 const app = express();
 
@@ -32,9 +29,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // routes
-app.use("/", indexRouter);
-app.use("/posts", postsRouter);
-app.use("/users", usersRouter);
-app.use("/comments", commentsRouter);
+app.use("/api", apiRouter);
 
 app.listen(process.env.PORT || 8080);
