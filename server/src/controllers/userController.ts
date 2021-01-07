@@ -98,6 +98,7 @@ export const signup_user = [
 // Get one user
 export const get_user = (req: Request, res: Response, next: NextFunction) => {
   User.findById(req.params.userid, (err: any, user: any) => {
+    if (err) next(err);
     res.json(user);
   });
 };
@@ -108,7 +109,8 @@ export const get_user_posts = (
   next: NextFunction
 ) => {
   Post.find({ user: req.params.userid }, (err: any, posts: any) => {
-    console.log(req.params.userid);
+    if (err) next(err);
+
     res.json(posts);
   }).populate("user");
 };
@@ -118,13 +120,5 @@ export const get_users = (req: Request, res: Response, next: NextFunction) => {
   User.find((err: any, users: any) => {
     if (err) return res.json(err);
     res.json(users);
-  });
-};
-
-export const checkAuth = (req: any, res: any, next: any) => {
-  const authenticated: boolean = typeof req.user !== "undefined";
-
-  res.status(200).json({
-    authenticated,
   });
 };

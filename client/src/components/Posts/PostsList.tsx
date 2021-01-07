@@ -3,12 +3,13 @@ import { PostContext } from "../contexts/PostContext";
 import PostCard from "./PostCard";
 
 export default function PostsList(props: any) {
-  const { posts, setPosts } = props;
+  const { posts, setPosts, setUpdate, update } = props;
 
   const updatePosts = (post: any) => {
-    const newPosts = posts.filter((a: any) => a !== post);
-    console.log(newPosts);
-    setPosts(posts.filter((a: any) => a !== post));
+    // const newPosts = posts.filter((a: any) => a !== post);
+    // console.log(newPosts);
+    // setPosts(posts.filter((a: any) => a !== post));
+    setUpdate(!update);
   };
 
   return (

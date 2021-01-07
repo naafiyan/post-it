@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { DateTime } from "luxon";
+import { DateTime, Duration, DurationObject } from "luxon";
 
 let PostSchema = new Schema({
   text: { type: String, required: true, minlength: 1, maxlength: 300 },
@@ -16,6 +16,13 @@ PostSchema.virtual("url").get(function (this: { _id: String }) {
 PostSchema.virtual("date_posted_formatted").get(function (this: {
   date_posted: Date;
 }) {
+  const date_now = DateTime.fromMillis(Date.now());
+  const date_posted = DateTime.fromJSDate(this.date_posted);
+  const diffNow: DurationObject = date_now
+    .diff(date_posted, ["months", "days", "hours", "minutes"])
+    .toObject();
+
+  console.log(diffNow);
   return DateTime.fromISO(this.date_posted.toString()).toLocaleString(
     DateTime.DATE_MED
   );
