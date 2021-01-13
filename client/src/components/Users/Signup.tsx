@@ -1,12 +1,10 @@
-import axios from "axios";
+import axios from "../../config/axios";
 import { useContext } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { PostContext } from "../contexts/PostContext";
 import { UserContext } from "../contexts/UserContext";
 import { handleLogin } from "../utils/UserActions";
-
-import API_URL from "../../config/urls";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -96,7 +94,7 @@ export default function SignUp() {
     console.log(form.target.username.value);
     axios
       .post(
-        API_URL + "/users/sign-up",
+        "/users/sign-up",
         { username, password, email },
         { headers: { "Content-type": "application/json" } }
       )

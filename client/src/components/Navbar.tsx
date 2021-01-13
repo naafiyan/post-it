@@ -2,13 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { UserContext } from "./contexts/UserContext";
-import axios from "axios";
+import axios from "../config/axios";
 
 import { useHistory } from "react-router-dom";
 
 import { Avatar } from "@material-ui/core";
-
-import API_URL from "../config/urls";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
@@ -25,7 +23,7 @@ export default function Navbar() {
   }, [user]);
 
   const handleLogout = () => {
-    axios.get(API_URL + "/users/log-out");
+    axios.get("/users/log-out");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
     localStorage.removeItem("user");

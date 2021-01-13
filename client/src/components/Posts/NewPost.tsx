@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import axios from "axios";
+import axios from "../../config/axios";
 
 import { PostContext } from "../contexts/PostContext";
-
-import API_URL from "../../config/urls";
 
 export default function NewPost() {
   const { update, setUpdate } = useContext(PostContext);
@@ -17,7 +15,7 @@ export default function NewPost() {
     const userData = JSON.parse(localStorage.getItem("user") || "");
     axios
       .post(
-        API_URL + "/posts/new",
+        "/posts/new",
         { text, user: userData },
         {
           headers: {

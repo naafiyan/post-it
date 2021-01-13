@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../config/axios";
 import { UserContext } from "../contexts/UserContext";
 import { FaTrashAlt } from "react-icons/fa";
-import API_URL from "../../config/urls";
 
 export function CommentForm(props: any) {
   const [text, setText] = useState("");
@@ -16,7 +15,7 @@ export function CommentForm(props: any) {
     console.log(text);
     axios
       .post(
-        API_URL + "/comments/new",
+        "/comments/new",
         {
           text: text,
           user: user,
@@ -72,7 +71,7 @@ export function Comment(props: any) {
 
   const handleDelete = () => {
     axios
-      .delete(API_URL + "/comments/" + comment._id, {
+      .delete("/comments/" + comment._id, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
             localStorage.getItem("id_token") || ""
