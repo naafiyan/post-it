@@ -8,6 +8,8 @@ import { useHistory } from "react-router-dom";
 
 import { Avatar } from "@material-ui/core";
 
+import API_URL from "../config/urls";
+
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,7 +25,7 @@ export default function Navbar() {
   }, [user]);
 
   const handleLogout = () => {
-    axios.get("http://localhost:3000/users/log-out");
+    axios.get(API_URL + "/users/log-out");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
     localStorage.removeItem("user");
