@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../config/axios";
-import API_URL from "../../config/urls";
 
 export const PostContext = React.createContext();
 

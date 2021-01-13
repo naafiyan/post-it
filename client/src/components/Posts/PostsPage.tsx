@@ -39,14 +39,6 @@ export default function PostsPage() {
         setUpdate={setUpdate}
         update={update}
       />
-      <div className="flex flex-col mx-10">
-        <ul>
-          <li>Max</li>
-          <li>Max</li>
-          <li>Max</li>
-          <li>Max</li>
-        </ul>
-      </div>
     </div>
   );
 }
