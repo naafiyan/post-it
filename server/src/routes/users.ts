@@ -1,5 +1,6 @@
 import express from "express";
 let router = express.Router();
+import passport from "passport";
 
 import {
   login_user,
@@ -7,6 +8,9 @@ import {
   get_users,
   get_user,
   get_user_posts,
+  accept_request,
+  get_requests,
+  send_request,
 } from "../controllers/userController";
 
 // Sign-Up
@@ -28,13 +32,26 @@ router.get("/:userid", get_user);
 // get user's posts
 router.get("/:userid/posts", get_user_posts);
 
-// check authentication
-router.get("/checkAuth", (req, res) => {
-  const authenticated: boolean = typeof req.user !== "undefined";
+// ------friends--------
+// get user's requests
+router.get(
+  ":userid/requests",
+  passport.authenticate("jwt", { session: false }),
+  get_requests
+);
 
-  res.status(200).json({
-    authenticated,
-  });
-});
+// send request
+router.put(
+  ":userid1/requests/send/:userid2",
+  passport.authenticate("jwt", { session: false }),
+  send_request
+);
+
+// accept request
+router.put(
+  ":userid1/requests/accept/:userid2",
+  passport.authenticate("jwt", { session: false }),
+  accept_request
+);
 
 module.exports = router;
