@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "../../config/axios";
 import { UserContext } from "../contexts/UserContext";
 
@@ -6,8 +6,6 @@ export default function FriendsList({ match }: any) {
   const [requests, setRequests] = useState([]);
   const userCtx: any = useContext(UserContext);
   const user = userCtx.user;
-
-  console.log(user);
 
   // fetch user's friendRequests
   useEffect(() => {
@@ -21,12 +19,20 @@ export default function FriendsList({ match }: any) {
       })
       .then((res) => {
         console.log(res.data);
-        setRequests(res.data);
+        const newRequests: any = requests;
+        newRequests.push(res.data);
+        setRequests(newRequests);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      {requests.length > 0
+        ? requests.map((friend: any) => <div>{friend.username}</div>)
+        : ""}
+    </div>
+  );
 }

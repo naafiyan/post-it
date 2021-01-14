@@ -169,8 +169,8 @@ export const get_requests = (
     // returns friendRequests of users after populating
 
     // TODO populate friendRequests with User
-    return res.status(200).json(user.friendRequests);
-  }).populate("friendRequests.User");
+    return res.status(200).json(user);
+  }).populate("friendRequests");
 };
 
 // accept friend request
