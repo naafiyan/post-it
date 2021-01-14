@@ -135,19 +135,24 @@ export const get_users = (req: Request, res: Response, next: NextFunction) => {
 // remove request
 
 // send friendRequest
-export const send_request = (
+export const send_request = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   // find the user from the req params
-  User.findOne({ _id: req.params.userid2 }, (err: Error, user: any) => {
-    if (err) return res.json(err);
-    // adds the value of user1 _id to friendRequests array of user2
+  try {
+    const user = await User.findById(req.params.userid2);
     user.friendRequests.push(req.params.userid1);
+    await user.save();
 
-    return res.status(200).json({ user1: req.params.userid1, user2: user._id });
-  });
+    return res.status(200).json({
+      user1: req.params.userid1,
+      user2: user._id,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const get_requests = (
@@ -162,8 +167,10 @@ export const get_requests = (
     // success
 
     // returns friendRequests of users after populating
+
+    // TODO populate friendRequests with User
     return res.status(200).json(user.friendRequests);
-  }).populate("friendRequests");
+  }).populate("friendRequests.User");
 };
 
 // accept friend request
@@ -186,8 +193,8 @@ export const accept_request = (
         // success
 
         // 2 way friend add
-        user1.friendsList.push(user2);
-        user2.friendsList.push(user1);
+        user1.friendList.push(user2);
+        user2.friendList.push(user1);
 
         //const newList = user1.friendsList;
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 export const UserContext = React.createContext();
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem("user") !== null) {

@@ -4,7 +4,6 @@ import { Avatar } from "@material-ui/core";
 
 export default function Sidebar(props: any) {
   const { user } = props;
-  console.log(user);
   return (
     <div className="h-60 w-60 px-20 my-20">
       {user && (

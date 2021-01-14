@@ -28,6 +28,7 @@ export default function Navbar() {
     localStorage.removeItem("expires_at");
     localStorage.removeItem("user");
     setUser(null);
+    setIsLoggedIn(false);
     history.push("/");
   };
 
@@ -42,11 +43,16 @@ export default function Navbar() {
       </div>
 
       <div className="mx-4 my-4">
-        {isLoggedIn && user && (
+        {isLoggedIn && (
           <div className="flex justify-end">
             <NavLink to={"/users/" + user._id}>
               <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
                 {user.username}
+              </p>
+            </NavLink>
+            <NavLink to={"/users/" + user._id + "/requests"}>
+              <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
+                Friend Requests
               </p>
             </NavLink>
             <Avatar className="mx-4" src="" alt="Naafiyan Ahmed" />

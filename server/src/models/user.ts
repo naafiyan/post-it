@@ -5,8 +5,8 @@ let UserSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   email: { type: String, required: true },
-  friendsList: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  friendsRequests: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  friendList: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  friendRequests: [{ type: Schema.Types.ObjectId, ref: "User" }],
   //avatar: use gridFS to store this
 });
 

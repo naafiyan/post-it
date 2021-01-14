@@ -14,6 +14,7 @@ import NewPost from "./components/Posts/NewPost";
 // Context
 import { UserProvider } from "./components/contexts/UserContext";
 import { PostProvider } from "./components/contexts/PostContext";
+import FriendsList from "./components/Users/FriendsList";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/sign-up" exact component={Signup} />
               <Route path="/posts/:id" exact component={Post} />
               <Route path="/users/:id" exact component={User} />
+              <Route path="/users/:id/requests" exact component={FriendsList} />
             </Switch>
           </div>
         </Router>

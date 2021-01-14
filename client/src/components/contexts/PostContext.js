@@ -11,7 +11,6 @@ export function PostProvider({ children }) {
     axios
       .get("/posts/")
       .then((res) => {
-        console.log(res.data.posts);
         setPosts(res.data.posts);
       })
       .catch((err) => console.log(err));

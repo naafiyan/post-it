@@ -35,15 +35,15 @@ router.get("/:userid/posts", get_user_posts);
 // ------friends--------
 // get user's requests
 router.get(
-  ":userid/requests",
+  "/:userid/requests",
   passport.authenticate("jwt", { session: false }),
   get_requests
 );
 
 // send request
 router.put(
-  ":userid1/requests/send/:userid2",
-  passport.authenticate("jwt", { session: false }),
+  "/:userid1/requests/send/:userid2",
+  //passport.authenticate("jwt", { session: false }),
   send_request
 );
 
