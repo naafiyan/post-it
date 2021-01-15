@@ -10,11 +10,11 @@ import User from "./components/Users/Profile/User";
 import PostsPage from "./components/Posts/PostsPage";
 import Signup from "./components/Users/Signup";
 import NewPost from "./components/Posts/NewPost";
+import FriendPage from "./components/Users/Friends/FriendPage";
 
 // Context
 import { UserProvider } from "./components/contexts/UserContext";
 import { PostProvider } from "./components/contexts/PostContext";
-import FriendsList from "./components/Users/FriendsList";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
               <Route path="/sign-up" exact component={Signup} />
               <Route path="/posts/:id" exact component={Post} />
               <Route path="/users/:id" exact component={User} />
-              <Route path="/users/:id/requests" exact component={FriendsList} />
+              <Route path="/friends" exact component={FriendPage} />
             </Switch>
           </div>
         </Router>

@@ -1,19 +1,21 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "../../config/axios";
-import { UserContext } from "../contexts/UserContext";
+import axios from "../../../config/axios";
+import { UserContext } from "../../contexts/UserContext";
 
-export default function FriendsList({ match }: any) {
+export default function FriendRequests({
+  match,
+  user,
+  update,
+  setUpdate,
+}: any) {
   const [requests, setRequests]: any = useState([[]]);
-  const [update, setUpdate]: any = useState(false);
-  const userCtx: any = useContext(UserContext);
-  const user = userCtx.user;
 
   console.log("Mounted");
 
   // fetch user's friendRequests
   useEffect(() => {
     axios
-      .get(`/users/${match.params.id}/requests`, {
+      .get(`/users/${user._id}/requests`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
             localStorage.getItem("id_token") || ""
@@ -51,6 +53,7 @@ export default function FriendsList({ match }: any) {
   // TODO: why tf does requests not render properly
   return (
     <div>
+      <h3>Pending Requests</h3>
       <ul>
         {requests && requests.length > 0
           ? requests.map((friend: any, idx: number) => (

@@ -50,7 +50,7 @@ export default function Navbar() {
                 {user.username}
               </p>
             </NavLink>
-            <NavLink to={"/users/" + user._id + "/requests"}>
+            <NavLink to={"/friends"}>
               <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
                 Friend Requests
               </p>
