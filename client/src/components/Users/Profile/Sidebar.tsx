@@ -11,7 +11,7 @@ export default function Sidebar(props: any) {
           <Avatar src="" alt="Naafiyan Ahmed" />
           <h3 className="text-xl py-6">{user.username}</h3>
           <p className="px-6 pb-4 text-center">
-            Hi my name is Naafiyan. I'm a student at Brown University.
+            Hi my name is {user.username}.
           </p>
         </div>
       )}
