@@ -52,7 +52,7 @@ export default function Navbar() {
             </NavLink>
             <NavLink to={"/friends"}>
               <p className="text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2">
-                Friend Requests
+                Friends
               </p>
             </NavLink>
             <Avatar className="mx-4" src="" alt="Naafiyan Ahmed" />

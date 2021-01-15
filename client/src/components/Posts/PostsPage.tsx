@@ -17,7 +17,7 @@ export default function PostsPage() {
     setUpdate(!update);
   }, []);
 
-  // maybe create an auto refresh with setTimeout
+  // maybe create an auto refresh with setInterval
   // could do it in PostContext
 
   // implementation for postpage

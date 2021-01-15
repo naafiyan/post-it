@@ -18,15 +18,12 @@ export default function PostCard(props: any) {
   const { updatePosts } = props;
   const [comments, setComments] = useState([]);
   const [showComments, setShowComments] = useState(false);
-  const [showCommentForm, setShowCommentForm] = useState(false);
   const [isCommentUpdate, setIsCommentUpdate] = useState(false);
 
   // format date better i.e. 2 hours ago, 5mins ago etc
   const date_posted_formatted = DateTime.fromISO(
     post.date_posted
   ).toLocaleString(DateTime.DATETIME_FULL);
-
-  const { posts } = useContext(PostContext);
 
   const { user } = useContext(UserContext);
   const [isPostUser, setIsPostUser] = useState(false);
