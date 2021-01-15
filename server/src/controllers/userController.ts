@@ -176,32 +176,65 @@ export const get_requests = (
 // accept friend request
 // api route will have userid1 and userid2
 // userid1 = user that is accepting request FROM userid2
-export const accept_request = (
+export const accept_request = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // find user1
-  User.findById(req.params.userid1, (err: Error, user1: any) => {
-    if (err) next(err); // might want return res.json instead
+  try {
+    const user1 = await User.findById(req.params.userid1).populate(
+      "friendRequests"
+    );
+    const user2 = await User.findById(req.params.userid2).populate(
+      "friendRequests"
+    );
 
-    // success
-    User.findById(req.params.userid2),
-      (err: Error, user2: any) => {
-        if (err) next(err); // might want return res.json instead
+    await user1.friendList.push(user2);
+    await user2.friendList.push(user1);
 
-        // success
+    await user1.friendRequests.splice(user1.friendRequests.indexOf(user2));
 
-        // 2 way friend add
-        user1.friendList.push(user2);
-        user2.friendList.push(user1);
+    await user1.save();
+    await user2.save();
 
-        //const newList = user1.friendsList;
+    return res.json({
+      user1fL: user1.friendList,
+      user2fL: user2.friendList,
+    });
+  } catch (err) {
+    res.json(err);
+  }
 
-        // removes the the user2 friendRequest
-        user1.friendRequests.splice(user1.friendRequests.indexOf(user2));
-      };
-  }).populate("friendRequests");
+  // User.findById(req.params.userid1, (err: Error, user1: any) => {
+  //   if (err) console.log(err); // might want return res.json instead
+
+  //   // success
+  //   User.findById(req.params.userid2),
+  //     (err: Error, user2: any) => {
+  //       if (err) console.log(err); // might want return res.json instead
+
+  //       // success
+
+  //       console.log("made it here");
+
+  //       // 2 way friend add
+  //       user1.friendList.push(user2);
+  //       user2.friendList.push(user1);
+
+  //       //const newList = user1.friendsList;
+
+  //       // removes the the user2 friendRequest
+  //       user1.friendRequests.splice(user1.friendRequests.indexOf(user2));
+
+  //       user1.save();
+  //       user2.save();
+
+  //       return res.json({
+  //         user1fL: user1.friendList,
+  //         user2fL: user2.friendList,
+  //       });
+  //     };
+  // }).populate("friendRequests");
 };
 
 // handle reject request

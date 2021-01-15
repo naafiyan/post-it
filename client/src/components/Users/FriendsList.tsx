@@ -4,6 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function FriendsList({ match }: any) {
   const [requests, setRequests]: any = useState([[]]);
+  const [update, setUpdate]: any = useState(false);
   const userCtx: any = useContext(UserContext);
   const user = userCtx.user;
 
@@ -25,9 +26,27 @@ export default function FriendsList({ match }: any) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [update]);
 
   console.log(requests);
+
+  const handleAccept = async (id: any) => {
+    try {
+      const res = await axios.put(`/users/${user._id}/requests/accept/${id}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("id_token") || ""
+          )}`,
+        },
+      });
+      console.log(res);
+
+      // refreshes friendslist
+      setUpdate(!update);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // TODO: why tf does requests not render properly
   return (
@@ -35,7 +54,15 @@ export default function FriendsList({ match }: any) {
       <ul>
         {requests && requests.length > 0
           ? requests.map((friend: any, idx: number) => (
-              <li key={idx}>{friend.username}</li>
+              <li key={idx}>
+                {" "}
+                <div>
+                  {friend.username}
+                  <button onClick={() => handleAccept(friend._id)}>
+                    Accept
+                  </button>
+                </div>
+              </li>
             ))
           : ""}
       </ul>

@@ -49,8 +49,8 @@ router.put(
 
 // accept request
 router.put(
-  ":userid1/requests/accept/:userid2",
-  passport.authenticate("jwt", { session: false }),
+  "/:userid1/requests/accept/:userid2",
+  //passport.authenticate("jwt", { session: false }),
   accept_request
 );
 
