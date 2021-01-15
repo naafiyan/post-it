@@ -3,9 +3,11 @@ import axios from "../../config/axios";
 import { UserContext } from "../contexts/UserContext";
 
 export default function FriendsList({ match }: any) {
-  const [requests, setRequests] = useState([]);
+  const [requests, setRequests]: any = useState([[]]);
   const userCtx: any = useContext(UserContext);
   const user = userCtx.user;
+
+  console.log("Mounted");
 
   // fetch user's friendRequests
   useEffect(() => {
@@ -18,21 +20,25 @@ export default function FriendsList({ match }: any) {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        const newRequests: any = requests;
-        newRequests.push(res.data);
-        setRequests(newRequests);
+        setRequests(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  console.log(requests);
+
+  // TODO: why tf does requests not render properly
   return (
     <div>
-      {requests.length > 0
-        ? requests.map((friend: any) => <div>{friend.username}</div>)
-        : ""}
+      <ul>
+        {requests && requests.length > 0
+          ? requests.map((friend: any, idx: number) => (
+              <li key={idx}>{friend.username}</li>
+            ))
+          : ""}
+      </ul>
     </div>
   );
 }
