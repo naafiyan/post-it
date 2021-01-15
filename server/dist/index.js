@@ -12,7 +12,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var dotenv = __importStar(require("dotenv"));
-dotenv.config();
+var path_1 = __importDefault(require("path"));
+dotenv.config({ path: path_1.default.resolve(__dirname, "../.env") });
 var mongoose_1 = __importDefault(require("mongoose"));
 var session = require("express-session");
 var passport_1 = __importDefault(require("./config/passport"));

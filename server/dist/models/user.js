@@ -13,6 +13,8 @@ var UserSchema = new mongoose_1.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
+    friendList: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "User" }],
+    friendRequests: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "User" }],
 });
 // url linking to user page
 UserSchema.virtual("url").get(function () {
