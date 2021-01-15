@@ -204,37 +204,21 @@ export const accept_request = async (
   } catch (err) {
     res.json(err);
   }
+};
 
-  // User.findById(req.params.userid1, (err: Error, user1: any) => {
-  //   if (err) console.log(err); // might want return res.json instead
+// get friends
+export const get_friends = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await User.findById(req.params.userid).populate("friendList");
 
-  //   // success
-  //   User.findById(req.params.userid2),
-  //     (err: Error, user2: any) => {
-  //       if (err) console.log(err); // might want return res.json instead
-
-  //       // success
-
-  //       console.log("made it here");
-
-  //       // 2 way friend add
-  //       user1.friendList.push(user2);
-  //       user2.friendList.push(user1);
-
-  //       //const newList = user1.friendsList;
-
-  //       // removes the the user2 friendRequest
-  //       user1.friendRequests.splice(user1.friendRequests.indexOf(user2));
-
-  //       user1.save();
-  //       user2.save();
-
-  //       return res.json({
-  //         user1fL: user1.friendList,
-  //         user2fL: user2.friendList,
-  //       });
-  //     };
-  // }).populate("friendRequests");
+    return res.json({ list: user.friendList });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // handle reject request

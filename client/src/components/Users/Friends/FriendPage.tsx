@@ -11,13 +11,8 @@ export default function FriendsPage({ match }: any) {
   const user = userCtx.user;
   return (
     <div>
-      <FriendList match={match} />
-      <FriendRequests
-        match={match}
-        user={user}
-        update={update}
-        setUpdate={setUpdate}
-      />
+      <FriendList user={user} update={update} setUpdate={setUpdate} />
+      <FriendRequests user={user} update={update} setUpdate={setUpdate} />
     </div>
   );
 }

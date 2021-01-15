@@ -11,6 +11,7 @@ import {
   accept_request,
   get_requests,
   send_request,
+  get_friends,
 } from "../controllers/userController";
 
 // Sign-Up
@@ -52,6 +53,13 @@ router.put(
   "/:userid1/requests/accept/:userid2",
   //passport.authenticate("jwt", { session: false }),
   accept_request
+);
+
+// get friends
+router.get(
+  "/:userid/friends",
+  //passport.authenticate("jwt", { session: false }),
+  get_friends
 );
 
 module.exports = router;

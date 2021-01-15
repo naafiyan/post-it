@@ -8,26 +8,28 @@ export default function FriendRequests({
   update,
   setUpdate,
 }: any) {
-  const [requests, setRequests]: any = useState([[]]);
+  const [requests, setRequests]: any = useState([]);
 
   console.log("Mounted");
 
   // fetch user's friendRequests
   useEffect(() => {
-    axios
-      .get(`/users/${user._id}/requests`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem("id_token") || ""
-          )}`,
-        },
-      })
-      .then((res) => {
-        setRequests(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (user !== null) {
+      axios
+        .get(`/users/${user._id}/requests`, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("id_token") || ""
+            )}`,
+          },
+        })
+        .then((res) => {
+          setRequests(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [update]);
 
   console.log(requests);
