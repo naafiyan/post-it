@@ -6,7 +6,6 @@ export default function Posts({ match }: any) {
   const [post, setPost]: any = useState();
   const [comments, setComments]: any = useState([]);
 
-  console.log(match.params.id);
   useEffect(() => {
     axios
       .get("/posts/" + match.params.id)
@@ -21,12 +20,9 @@ export default function Posts({ match }: any) {
 
   const loadComments = () => {
     axios.get("/comments/" + match.params.id).then((res) => {
-      console.log(res.data);
       setComments(res.data.comments);
     });
   };
-
-  console.log(post);
 
   return (
     <div>

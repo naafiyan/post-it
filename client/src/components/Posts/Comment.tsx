@@ -12,7 +12,6 @@ export function CommentForm(props: any) {
   const handleSubmitComment = (form: any) => {
     form.preventDefault();
     form.target.reset();
-    console.log(text);
     axios
       .post(
         "/comments/new",
@@ -30,7 +29,6 @@ export function CommentForm(props: any) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setUpdate(!update);
         setText("");
       })

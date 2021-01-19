@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export default function Sidebar(props: any) {
   const { user, loggedInUser, handleAdd } = props;
 
-  console.log(loggedInUser.friendList.includes(user._id));
   return (
     <div className="h-60 w-60 px-20 my-20">
       {user && (

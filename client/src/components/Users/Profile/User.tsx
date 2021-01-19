@@ -11,7 +11,6 @@ export default function User({ match }: any) {
   const [isLoading, setIsLoading]: any = useState(true);
 
   const loggedInUser = useContext(UserContext);
-  console.log(loggedInUser);
 
   const [posts, setPosts] = useState([]);
 

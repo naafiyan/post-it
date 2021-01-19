@@ -6,17 +6,17 @@ import { PostContext } from "../contexts/PostContext";
 
 export default function NewPost() {
   const { update, setUpdate } = useContext(PostContext);
+  const { user } = useContext(UserContext);
   const [text, setText] = useState("");
 
   const [count, setCount] = useState(0);
 
   const handleSubmit = (form: any) => {
     form.preventDefault();
-    const userData = JSON.parse(localStorage.getItem("user") || "");
     axios
       .post(
         "/posts/new",
-        { text, user: userData },
+        { text, user: user },
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(

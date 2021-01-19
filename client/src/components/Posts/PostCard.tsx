@@ -65,7 +65,6 @@ export default function PostCard(props: any) {
   // load comments
   useEffect(() => {
     axios.get("/comments/" + post._id).then((res) => {
-      console.log(res.data);
       setComments(res.data.comments);
     });
   }, [showComments, isCommentUpdate]);

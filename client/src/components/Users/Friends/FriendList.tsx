@@ -19,7 +19,6 @@ export default function FriendList({ user, setUpdate, update }: any) {
         },
       });
       await setFriends(res.data.list);
-      console.log(friends);
     } catch (err) {
       console.log(err);
     }

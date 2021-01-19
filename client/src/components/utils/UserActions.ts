@@ -16,13 +16,14 @@ export const handleLogin = (
     )
     .then((res) => {
       userContext.setUser(res.data.user);
-      console.log(res.data);
       localStorage.setItem("id_token", JSON.stringify(res.data.token));
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("userId", JSON.stringify(res.data.user._id));
       setUpdate(!update);
       history.push("/");
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 export const handleLogout = (history: any, setUser: any) => {

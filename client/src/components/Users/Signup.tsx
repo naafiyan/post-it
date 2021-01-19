@@ -88,10 +88,8 @@ export default function SignUp() {
   const handleSubmit = (form: any) => {
     form.preventDefault();
     if (!handleValidation(form)) {
-      console.log("form err");
       return;
     }
-    console.log(form.target.username.value);
     axios
       .post(
         "/users/sign-up",
